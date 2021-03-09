@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-//using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour
@@ -26,11 +25,18 @@ public class CharacterStats : MonoBehaviour
     public ParticleSystem healing;
     public ParticleSystem damageHit;
 
+    [Header("Enemies")]
+    public GameObject enemy;
+    float _enemyDmg;
+
     private void Awake()
     {
         currentHealth = maxHealth;
         anims = GetComponent<Animator>();
         coll = GetComponent<CapsuleCollider>();
+       
+
+       
     }
 
 
@@ -125,7 +131,11 @@ public class CharacterStats : MonoBehaviour
     {
         if (other.CompareTag("EnemyWeapon"))
         {
-            TakeDamage(10);
+            _enemyDmg = enemy.GetComponentInChildren<Enemy>().dmg;
+            //Debug.Log(_enemyDmg);
+
+            int enemyDmg = (int)_enemyDmg;
+            TakeDamage(enemyDmg);
             //Invulnerable();
         }
     }

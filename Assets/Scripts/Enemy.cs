@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
                 else
                 {
                     activeState = States.attack;
-                    Debug.Log("attack");
+                    //Debug.Log("attack");
                     /*if (anim.GetBool("Attack") == true)
                     {
                        
@@ -119,12 +119,12 @@ public class Enemy : MonoBehaviour
                 {
                     activeState = States.chase;
                 }
-                if (target.GetComponent<Player>().dead)
+                if (target.GetComponent<CharacterStats>().dead)
                 {
                     activeState = States.wait;
                 }
                 colliderWeapon.enabled = !colliderWeapon.enabled;
-                Debug.Log("Attack");
+                //Debug.Log("Attack");
                 
                 break;
 
@@ -257,7 +257,7 @@ public class Enemy : MonoBehaviour
         {
             if (SeePlayer().g != null)
             {
-                if (SeePlayer().g.GetComponent<Player>().dead)
+                if (SeePlayer().g.GetComponent<CharacterStats>().dead)
                 {
                     activeState = States.move;
                 }

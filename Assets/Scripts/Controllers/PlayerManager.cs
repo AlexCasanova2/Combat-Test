@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Start()
     {
-        isBlocking = player.GetComponentInChildren<PlayerController>().isBlocking;
+        //isBlocking = player.GetComponentInChildren<PlayerController>().isBlocking;
        
     }
 
