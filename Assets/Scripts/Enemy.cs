@@ -15,8 +15,7 @@ public class Enemy : MonoBehaviour
     Vector3 activeDestination;
     public GameObject target = null;
 
-    //public Collider colliderWeapon;
-
+    public bool dead;
     public float dmg;
     private float _vida;
     public float vidaMax, vidaMin;
@@ -56,6 +55,8 @@ public class Enemy : MonoBehaviour
 
     public ParticleSystem damageHit;
 
+    [Header("Lista de audio")]
+    public List<AudioClip> audioClips;
 
     void Start()
     {
@@ -64,24 +65,21 @@ public class Enemy : MonoBehaviour
         wTimer = 0;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        //colliderWeapon = GetComponent<Collider>();
+
+        PlayAudio();
     }
 
     
     void Update()
     {
-        
+        //UpdateAnim();
         switch (activeState)
         {
             case States.wait:
 
-                //Debug.Log("Wait");
-
                 break;
 
             case States.move:
-                //Debug.Log("Moving");
-
                 MoveAgent();
 
                 break;
@@ -109,14 +107,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    activeState = States.attack;
-                    //Debug.Log("attack");
-                    /*if (anim.GetBool("Attack") == true)
-                    {
-                       
-                    }*/
-                    //colliderWeapon.enabled = !colliderWeapon.enabled;
-                   
+                    activeState = States.attack;                  
                 }
 
                 break;
@@ -131,7 +122,6 @@ public class Enemy : MonoBehaviour
                 {
                     activeState = States.wait;
                 }
-                //colliderWeapon.enabled = !colliderWeapon.enabled;
                 
                 break;
 
@@ -151,7 +141,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log("Dead");
                 transform.GetComponent<NavMeshAgent>().enabled = false;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
-
+                //UpdateAnim();
                 break;
         }
     }
@@ -246,14 +236,17 @@ public class Enemy : MonoBehaviour
                 anim.SetBool("GotDMG", false);
                 anim.SetBool("Walk", false);
 
-                anim.SetBool("Dead", true);
 
-                /*if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                anim.SetBool("Dead", true);
+                
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
                 {
                     anim.SetBool("Dead", false);
-                }*/
+                }
+
                 break;
         }
+        
     }
 
     private void FixedUpdate()
@@ -276,6 +269,14 @@ public class Enemy : MonoBehaviour
     }
 
 
+    public void PlayAudio()
+    {
+        foreach (AudioClip a in audioClips)
+        {
+            Debug.Log(a);
+        }
+    }
+
     public void OnTriggerEnter(Collider other)
     {    
         if (other.CompareTag("PlayerWeapon") && !inv)
@@ -284,7 +285,7 @@ public class Enemy : MonoBehaviour
             {
                 playerDamage = player.GetComponent<CharacterStats>().damage;
                 _playerDmg = playerDamage.getValue();
-                Debug.Log("Player damage: " + _playerDmg);
+                //Debug.Log("Player damage: " + _playerDmg);
             }
             catch (NullReferenceException ex)
             {
@@ -292,10 +293,13 @@ public class Enemy : MonoBehaviour
             }
 
             TakeDamage(_playerDmg);
-            
         }
     }
-
+    public virtual void Die()
+    {
+        //Debug.Log(transform.name + " died");
+        dead = true;
+    }
 
     public void TakeDamage(int damage)
     {
@@ -309,6 +313,7 @@ public class Enemy : MonoBehaviour
         if (vida <= 0)
         {
             activeState = States.dead;
+            Die();
         }
     }
 
@@ -360,7 +365,7 @@ public class Enemy : MonoBehaviour
         public GameObject g;
         public bool b;
     }
-       private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position + new Vector3(0, 1, 0) + transform.forward * hit.distance, new Vector3(1, 1, 1));
     }
@@ -368,6 +373,16 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+
+    public void UpdateAnim()
+    {
+        anim.SetBool("Dead", dead);
+    }
+
+    public void StopAction()
+    {
+        anim.SetBool("Dead", false);
     }
 
 }

@@ -83,7 +83,7 @@ public class CharacterStats : MonoBehaviour
         else
         {
             currentHealth += heal;
-            Debug.Log(transform.name + " takes " + heal + " healing.");
+            //Debug.Log(transform.name + " takes " + heal + " healing.");
             healthUI.fillAmount += heal / 100f;
             healing.Play();
         }
@@ -99,7 +99,7 @@ public class CharacterStats : MonoBehaviour
 
         currentHealth -= damage;
 
-        Debug.Log(transform.name + " takes " + damage + " damage.");
+        //Debug.Log(transform.name + " takes " + damage + " damage.");
         healthUI.fillAmount -= damage / 100f;
         //Debug.Log(healthUI.fillAmount);
         //gotDMG = true;
@@ -125,7 +125,7 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log(transform.name + " died");
+        //Debug.Log(transform.name + " died");
         dead = true;
     }
 
@@ -157,7 +157,7 @@ public class CharacterStats : MonoBehaviour
         {
             tCombo -= Time.deltaTime;
             if (tCombo <= 0f)
-            {
+            { 
                 if (combo == 3 || combo == 2)
                 {
                     combo = 0;
