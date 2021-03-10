@@ -3,19 +3,23 @@ using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour
 {
+    #region Variables
     Animator anims;
 
-    CapsuleCollider coll;
-
     private int maxHealth = 100;
-    public int currentHealth { get; private set; }
 
+    public int currentHealth { get; private set; }
+    [Header("Player Combat")]
     public int combo;
     public float tCombo = 1.5f;
     public bool gotDMG, isAttacking, dead;
-
+    public bool isVulnerable;
+    public float tInvulnerable = 1.5f;
+    private float _tInvulnerable;
     private bool isEquipped, _isEquipped;
 
+
+    [Header("Stats")]
     public Stat damage;
     public Stat armor;
 
@@ -29,28 +33,28 @@ public class CharacterStats : MonoBehaviour
     public GameObject enemy;
     float _enemyDmg;
 
+    #endregion
+
     private void Awake()
     {
         currentHealth = maxHealth;
         anims = GetComponent<Animator>();
-        coll = GetComponent<CapsuleCollider>();
-       
-
-       
+        _tInvulnerable = tInvulnerable;
     }
 
+    
 
     private void Update()
     {
         //Comprobamos si el jugador ha equipado un arma
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
-       
+
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
         if (dead) { return; }
         if (gotDMG) { return; }
 
-        
+
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -62,6 +66,7 @@ public class CharacterStats : MonoBehaviour
         }
         AttackAndCombo();
 
+        Invulnerable();
 
     }
     private void LateUpdate()
@@ -69,7 +74,7 @@ public class CharacterStats : MonoBehaviour
         UpdateAnim();
     }
 
-    public void HealPlayer(int heal) 
+    public void HealPlayer(int heal)
     {
         if (currentHealth >= 100)
         {
@@ -80,7 +85,6 @@ public class CharacterStats : MonoBehaviour
             currentHealth += heal;
             Debug.Log(transform.name + " takes " + heal + " healing.");
             healthUI.fillAmount += heal / 100f;
-            //Debug.Log(healthUI.fillAmount);
             healing.Play();
         }
     }
@@ -94,13 +98,14 @@ public class CharacterStats : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHealth -= damage;
-        
+
         Debug.Log(transform.name + " takes " + damage + " damage.");
         healthUI.fillAmount -= damage / 100f;
         //Debug.Log(healthUI.fillAmount);
         //gotDMG = true;
         anims.SetBool("GotHit", true);
-
+        //Nos hacemos invulnerables
+        isVulnerable = true;
         damageHit.Play();
         StopAttack();
 
@@ -120,11 +125,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Die()
     {
-        //Die
-        //Este metodo sera sobrescrito
         Debug.Log(transform.name + " died");
         dead = true;
-        //coll.direction = 2;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -132,11 +134,8 @@ public class CharacterStats : MonoBehaviour
         if (other.CompareTag("EnemyWeapon"))
         {
             _enemyDmg = enemy.GetComponentInChildren<Enemy>().dmg;
-            //Debug.Log(_enemyDmg);
-
             int enemyDmg = (int)_enemyDmg;
             TakeDamage(enemyDmg);
-            //Invulnerable();
         }
     }
 
@@ -145,17 +144,14 @@ public class CharacterStats : MonoBehaviour
         //Si apretamos el boton de accion, no estamos atacando y tenemos equipada un arma empezamos el combo
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking && isEquipped)
         {
-           
+
             if (combo < 3)
             {
                 combo++;
                 isAttacking = true;
                 tCombo = 1.5f;
-                //Debug.Log(isAttacking);
-                Debug.Log("combo: " + combo);
-                
             }
-            
+
         }
         if (combo > 0)
         {
@@ -173,9 +169,22 @@ public class CharacterStats : MonoBehaviour
                 tCombo = 1.5f;
             }
         }
-        
+
     }
-   
+
+    public void Invulnerable()
+    {
+        if (isVulnerable)
+        {
+            tInvulnerable -= Time.deltaTime;
+            if (tInvulnerable <= 0)
+            {
+                isVulnerable = false;
+                tInvulnerable = _tInvulnerable;
+            }
+        }
+    }
+
     public void StopAttack()
     {
         if (isAttacking)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,12 +15,17 @@ public class Enemy : MonoBehaviour
     Vector3 activeDestination;
     public GameObject target = null;
 
-    public Collider colliderWeapon;
+    //public Collider colliderWeapon;
 
     public float dmg;
     private float _vida;
     public float vidaMax, vidaMin;
-    
+
+    [Header("Player")]
+    public GameObject player;
+    int _playerDmg;
+    Stat playerDamage;
+
     public float vida {
         get {
             return _vida; //return nos devolverá el valor que le indiquemos
@@ -48,6 +54,8 @@ public class Enemy : MonoBehaviour
     public bool inv;
     public float lookRadius = 10f;
 
+    public ParticleSystem damageHit;
+
 
     void Start()
     {
@@ -56,7 +64,7 @@ public class Enemy : MonoBehaviour
         wTimer = 0;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        colliderWeapon = GetComponent<Collider>();
+        //colliderWeapon = GetComponent<Collider>();
     }
 
     
@@ -107,7 +115,7 @@ public class Enemy : MonoBehaviour
                     {
                        
                     }*/
-                    colliderWeapon.enabled = !colliderWeapon.enabled;
+                    //colliderWeapon.enabled = !colliderWeapon.enabled;
                    
                 }
 
@@ -123,14 +131,14 @@ public class Enemy : MonoBehaviour
                 {
                     activeState = States.wait;
                 }
-                colliderWeapon.enabled = !colliderWeapon.enabled;
-                //Debug.Log("Attack");
+                //colliderWeapon.enabled = !colliderWeapon.enabled;
                 
                 break;
 
             case States.gotdmg:
 
                 Debug.Log("GotDMG");
+                anim.SetBool("GotDMG", true);
                 if (!inv)
                 {
                     activeState = States.chase;
@@ -164,7 +172,6 @@ public class Enemy : MonoBehaviour
                     wTimer = 0;
                     timer = wanderTimer;
                     MoveAgent();
-                    //Debug.Log("Move");
                 }
                 break;
 
@@ -216,8 +223,6 @@ public class Enemy : MonoBehaviour
                     aTimer = 0;
                     
                 }
-                
-
                 break;
 
             case States.gotdmg:
@@ -243,10 +248,10 @@ public class Enemy : MonoBehaviour
 
                 anim.SetBool("Dead", true);
 
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                /*if (anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
                 {
                     anim.SetBool("Dead", false);
-                }
+                }*/
                 break;
         }
     }
@@ -270,23 +275,40 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+
+    public void OnTriggerEnter(Collider other)
+    {    
         if (other.CompareTag("PlayerWeapon") && !inv)
         {
-            Player p = other.GetComponentInParent<Player>();
-
-            activeState = States.gotdmg;
-
-            //DamagePopup.Create(transform.position, (int)p.dmg, p.combo == 3);
-
-            vida -= p.dmg;
-            inv = true;
-
-            if (vida <= 0)
+            try
             {
-                activeState = States.dead;
+                playerDamage = player.GetComponent<CharacterStats>().damage;
+                _playerDmg = playerDamage.getValue();
+                Debug.Log("Player damage: " + _playerDmg);
             }
+            catch (NullReferenceException ex)
+            {
+                Debug.LogWarning("No existe el componente.");
+            }
+
+            TakeDamage(_playerDmg);
+            
+        }
+    }
+
+
+    public void TakeDamage(int damage)
+    {
+        activeState = States.gotdmg;
+        damageHit.Play();
+        //DamagePopup.Create(transform.position, (int)p.dmg, p.combo == 3);
+
+        vida -= damage;
+        //inv = true;
+
+        if (vida <= 0)
+        {
+            activeState = States.dead;
         }
     }
 
@@ -310,7 +332,7 @@ public class Enemy : MonoBehaviour
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
+        Vector3 randDirection = UnityEngine.Random.insideUnitSphere * dist;
 
         randDirection += origin;
 
