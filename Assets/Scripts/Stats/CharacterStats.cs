@@ -21,6 +21,7 @@ public class CharacterStats : MonoBehaviour
     private int currentXp;
 
     public bool _isdead;
+    public bool isTalking;
 
 
     [Header("Stats")]
@@ -53,8 +54,6 @@ public class CharacterStats : MonoBehaviour
         
     }
 
-    
-
     private void Update()
     {
         //Comprobamos si el jugador ha equipado un arma
@@ -66,6 +65,7 @@ public class CharacterStats : MonoBehaviour
         if (gotDMG) { return; }
 
 
+        //Debug.Log("Current XP: " + currentXp);
 
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T))
@@ -81,14 +81,6 @@ public class CharacterStats : MonoBehaviour
             GetXp(10);
         }
         if (currentXp >= 100) GetXp(0);
-
-        //Si matamos a un enemigo sumamos 10 de experiencia
-        _isdead = enemy.GetComponentInChildren<Enemy>().dead;
-        Debug.Log("Valor en el Player: " + _isdead);
-        if (_isdead)
-        {
-            GetXp(10);
-        }
 
         AttackAndCombo();
 
@@ -120,7 +112,7 @@ public class CharacterStats : MonoBehaviour
         if (currentXp >= 100)
         {
             playerLevel++;
-            Debug.Log("Subes de nivel. Ahora eres nivel: " + playerLevel);
+            //Debug.Log("Subes de nivel. Ahora eres nivel: " + playerLevel);
             currentXp = 0;
             xpUI.fillAmount = 0;
             LvlUI.text = playerLevel.ToString();
@@ -128,8 +120,7 @@ public class CharacterStats : MonoBehaviour
 
         currentXp += xp;
         Debug.Log(currentXp);
-        float ey = xpUI.fillAmount += xp / 100f;
-        Debug.Log(ey);
+        xpUI.fillAmount += xp / 100f;
 
     }
 

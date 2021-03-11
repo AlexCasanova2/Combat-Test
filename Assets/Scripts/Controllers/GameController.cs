@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        UnityEngine.Cursor.visible = false;
+        //UnityEngine.Cursor.visible = false;
         hola = cameraLook.gameObject.GetComponent<CinemachineFreeLook>();
        
     }

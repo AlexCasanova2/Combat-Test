@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     int _playerDmg;
     Stat playerDamage;
+    public Image xpUI;
 
     public float vida {
         get {
@@ -266,6 +268,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void GiveXP()
+    {
+       // player.GetComponentInChildren<CharacterStats>().GetXp(10);
+    }
 
     public void PlayAudio()
     {
@@ -295,10 +301,8 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Die()
     {
-        //Debug.Log(transform.name + " died");
         dead = true;
         Destroy(transform.parent.gameObject, 5f);
-
     }
 
     public void TakeDamage(int damage)
