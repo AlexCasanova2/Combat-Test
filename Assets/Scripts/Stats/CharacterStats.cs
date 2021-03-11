@@ -17,6 +17,10 @@ public class CharacterStats : MonoBehaviour
     public float tInvulnerable = 1.5f;
     private float _tInvulnerable;
     private bool isEquipped, _isEquipped;
+    private int playerLevel = 1;
+    private int currentXp;
+
+    public bool _isdead;
 
 
     [Header("Stats")]
@@ -25,8 +29,12 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Visual")]
     public GameObject gameManager;
+
     public Image healthUI;
     public ParticleSystem healing;
+
+    public Image xpUI;
+    public Text LvlUI;
     public ParticleSystem damageHit;
 
     [Header("Enemies")]
@@ -40,6 +48,9 @@ public class CharacterStats : MonoBehaviour
         currentHealth = maxHealth;
         anims = GetComponent<Animator>();
         _tInvulnerable = tInvulnerable;
+
+        LvlUI.text = playerLevel.ToString();
+        
     }
 
     
@@ -55,6 +66,7 @@ public class CharacterStats : MonoBehaviour
         if (gotDMG) { return; }
 
 
+
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -64,6 +76,20 @@ public class CharacterStats : MonoBehaviour
         {
             HealPlayer(5);
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GetXp(10);
+        }
+        if (currentXp >= 100) GetXp(0);
+
+        //Si matamos a un enemigo sumamos 10 de experiencia
+        _isdead = enemy.GetComponentInChildren<Enemy>().dead;
+        Debug.Log("Valor en el Player: " + _isdead);
+        if (_isdead)
+        {
+            GetXp(10);
+        }
+
         AttackAndCombo();
 
         Invulnerable();
@@ -87,6 +113,24 @@ public class CharacterStats : MonoBehaviour
             healthUI.fillAmount += heal / 100f;
             healing.Play();
         }
+    }
+
+    public void GetXp(int xp)
+    {
+        if (currentXp >= 100)
+        {
+            playerLevel++;
+            Debug.Log("Subes de nivel. Ahora eres nivel: " + playerLevel);
+            currentXp = 0;
+            xpUI.fillAmount = 0;
+            LvlUI.text = playerLevel.ToString();
+        }
+
+        currentXp += xp;
+        Debug.Log(currentXp);
+        float ey = xpUI.fillAmount += xp / 100f;
+        Debug.Log(ey);
+
     }
 
 

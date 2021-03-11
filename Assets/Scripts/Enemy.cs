@@ -127,7 +127,6 @@ public class Enemy : MonoBehaviour
 
             case States.gotdmg:
 
-                Debug.Log("GotDMG");
                 anim.SetBool("GotDMG", true);
                 if (!inv)
                 {
@@ -138,10 +137,9 @@ public class Enemy : MonoBehaviour
 
             case States.dead:
 
-                Debug.Log("Dead");
                 transform.GetComponent<NavMeshAgent>().enabled = false;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
-                //UpdateAnim();
+                Die();
                 break;
         }
     }
@@ -273,7 +271,7 @@ public class Enemy : MonoBehaviour
     {
         foreach (AudioClip a in audioClips)
         {
-            Debug.Log(a);
+            //Debug.Log(a);
         }
     }
 
@@ -283,7 +281,7 @@ public class Enemy : MonoBehaviour
         {
             try
             {
-                playerDamage = player.GetComponent<CharacterStats>().damage;
+                playerDamage = player.GetComponentInChildren<CharacterStats>().damage;
                 _playerDmg = playerDamage.getValue();
                 //Debug.Log("Player damage: " + _playerDmg);
             }
@@ -299,6 +297,8 @@ public class Enemy : MonoBehaviour
     {
         //Debug.Log(transform.name + " died");
         dead = true;
+        Destroy(transform.parent.gameObject, 5f);
+
     }
 
     public void TakeDamage(int damage)
@@ -313,7 +313,7 @@ public class Enemy : MonoBehaviour
         if (vida <= 0)
         {
             activeState = States.dead;
-            Die();
+            
         }
     }
 

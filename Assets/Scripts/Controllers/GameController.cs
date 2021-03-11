@@ -9,6 +9,14 @@ public class GameController : MonoBehaviour
 
     public static bool GameIsPaused = false;
 
+    public GameObject enemyPrefab;
+    public int numEnemies;
+
+    private void Awake()
+    {
+        InstantiateEnemy();
+    }
+
     void Start()
     {
         UnityEngine.Cursor.visible = false;
@@ -31,6 +39,14 @@ public class GameController : MonoBehaviour
                 Pause();
             }
 
+        }
+    }
+
+    public void InstantiateEnemy()
+    {
+        for (int i = 0; i < numEnemies; i++)
+        {
+            Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
 
