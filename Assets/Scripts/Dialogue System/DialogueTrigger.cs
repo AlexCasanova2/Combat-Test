@@ -17,7 +17,7 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerSecondDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(secondDialogue);
+        FindObjectOfType<DialogueManager>().StartSecondDialogue(secondDialogue);
     }
 
     private void OnTriggerEnter(Collider other)

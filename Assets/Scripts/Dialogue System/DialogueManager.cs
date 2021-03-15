@@ -43,7 +43,24 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
 
     }
-   
+    public void StartSecondDialogue(Dialogue dialogue)
+    {
+        nameObj.SetActive(true);
+        dialogueObj.SetActive(true);
+        continueObj.SetActive(true);
+
+        anim.SetBool("OpenClose", true);
+        nameText.text = dialogue.name;
+
+        sentences.Clear();
+        foreach (string sentence in dialogue.sentences)
+        {
+            sentences.Enqueue(sentence);
+        }
+        DisplayNextSecondSentence();
+
+    }
+
     public void DisplayNextSentence()
     {
             if (sentences.Count == 0)
@@ -59,6 +76,23 @@ public class DialogueManager : MonoBehaviour
 
             string sentece = sentences.Dequeue();
             dialogueText.text = sentece;
+    }
+
+    public void DisplayNextSecondSentence()
+    {
+        if (sentences.Count == 0)
+        {
+            EndSecondDialogue();
+            return;
+        }
+        if (sentences.Count == sentences.Count)
+        {
+            cam1.depth = 1;
+            cam2.depth = 0;
+        }
+
+        string sentece = sentences.Dequeue();
+        dialogueText.text = sentece;
     }
 
     public void EndDialogue()
