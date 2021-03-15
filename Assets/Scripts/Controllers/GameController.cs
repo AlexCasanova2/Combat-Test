@@ -9,44 +9,39 @@ public class GameController : MonoBehaviour
 
     public static bool GameIsPaused = false;
 
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab, dialogueManager;
     public int numEnemies;
-
-    private void Awake()
-    {
-        InstantiateEnemy();
-    }
+    bool isFinished;
 
     void Start()
     {
-        //UnityEngine.Cursor.visible = false;
         hola = cameraLook.gameObject.GetComponent<CinemachineFreeLook>();
-       
     }
 
     private void Update()
     {
+        if (isFinished) { return; }
+        isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
+        //Debug.Log(isFinished);
+        InstantiateEnemy();
         StopMovement();
-
+       
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-
+            if (GameIsPaused) Resume();
+            else Pause();
         }
     }
 
     public void InstantiateEnemy()
     {
-        for (int i = 0; i < numEnemies; i++)
+        if (isFinished)
         {
-            Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            for (int i = 0; i < numEnemies; i++)
+            {
+                Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                isFinished = false;
+            }
         }
     }
 
@@ -64,7 +59,6 @@ public class GameController : MonoBehaviour
         GameIsPaused = true;
     }
 
-
     public void StopMovement()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -73,8 +67,5 @@ public class GameController : MonoBehaviour
             
             hola.enabled = ! hola.enabled;
         }
-        
     }
-
-
 }

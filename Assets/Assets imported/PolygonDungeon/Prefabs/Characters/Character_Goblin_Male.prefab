@@ -913,12 +913,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeState: 5
-  target: {fileID: 0}
+  target: {fileID: 1773527587489675065, guid: 4b863364d0aae32468e9576306a3b282, type: 3}
   dead: 0
   dmg: 5
   vidaMax: 50
   vidaMin: 0
   player: {fileID: 1773527587489675065, guid: 4b863364d0aae32468e9576306a3b282, type: 3}
+  xpUI: {fileID: 0}
   wanderRadius: 10
   wanderTimer: 3
   waitTimer: 2

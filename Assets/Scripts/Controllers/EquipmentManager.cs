@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class EquipmentManager : MonoBehaviour
     #endregion
     public bool isEquipped;
 
-
+    public Animator anim;
     public ItemPickUp basicHelmet;
     public ItemPickUp basicSword;
     public ItemPickUp basicShield;
@@ -41,6 +42,19 @@ public class EquipmentManager : MonoBehaviour
         //currentMeshes = new SkinnedMeshRenderer[numSlots];
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            UnequipAll();
+            AudioSource audio = GetComponent<AudioSource>();
+
+            audio.Play();
+        }
+
+        //anim.SetBool("isEquipped", isEquipped);
+        
+    }
     
     public void Equip(Equipment newItem)
     {
@@ -128,16 +142,6 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            UnequipAll();
-            AudioSource audio = GetComponent<AudioSource>();
-
-            audio.Play();
-        }
-        
-    }
+    
 
 }

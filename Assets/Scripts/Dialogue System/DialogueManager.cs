@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,12 +13,19 @@ public class DialogueManager : MonoBehaviour
     public Animator anim;
     public Queue<string> sentences;
     public Camera cam1, cam2;
-
+    public bool isFinished;
+    public GameObject spawnEnemies;
+    PlayableDirector _spawnEnemies;
+    
     void Start()
     {
         sentences = new Queue<string>();
+        _spawnEnemies = spawnEnemies.GetComponent<PlayableDirector>();
     }
-
+    private void Update()
+    {
+        isFinished = false;
+    }
     public void StartDialogue(Dialogue dialogue)
     {
         nameObj.SetActive(true);
@@ -32,31 +41,53 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
         DisplayNextSentence();
-    }
 
+    }
+   
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
-        {
+            if (sentences.Count == 0)
+            {
             EndDialogue();
-            return;
-        }
-        if (sentences.Count == sentences.Count)
-        {
-            cam1.depth = 1;
-            cam2.depth = 0;
-        }
+                return;
+            }
+            if (sentences.Count == sentences.Count)
+            {
+                cam1.depth = 1;
+                cam2.depth = 0;
+            }
 
-        string sentece = sentences.Dequeue();
-        dialogueText.text = sentece;
+            string sentece = sentences.Dequeue();
+            dialogueText.text = sentece;
     }
 
-    void EndDialogue()
+    public void EndDialogue()
     {
+          Debug.Log("First");
+          FindObjectOfType<CharacterStats>().isTalking = false;
+          anim.SetBool("OpenClose", false);
+          cam2.depth = 1;
+          cam1.depth = 0;
+          FindObjectOfType<ThirdPersonCharacter>().enabled = true;
+          FindObjectOfType<ThirdPersonUserControl>().enabled = true;
+          FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
+          if (!isFinished) isFinished = true;
+          _spawnEnemies.Play();
+    }
+
+    public void EndSecondDialogue()
+    {
+
+        Debug.Log("Second");
         FindObjectOfType<CharacterStats>().isTalking = false;
         anim.SetBool("OpenClose", false);
-        Debug.Log("Ended");
         cam2.depth = 1;
         cam1.depth = 0;
+        FindObjectOfType<ThirdPersonCharacter>().enabled = true;
+        FindObjectOfType<ThirdPersonUserControl>().enabled = true;
+        FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
+        if (!isFinished) isFinished = false;
     }
+   
+   
 }

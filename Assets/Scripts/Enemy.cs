@@ -289,7 +289,6 @@ public class Enemy : MonoBehaviour
             {
                 playerDamage = player.GetComponentInChildren<CharacterStats>().damage;
                 _playerDmg = playerDamage.getValue();
-                //Debug.Log("Player damage: " + _playerDmg);
             }
             catch (NullReferenceException ex)
             {
@@ -317,7 +316,6 @@ public class Enemy : MonoBehaviour
         if (vida <= 0)
         {
             activeState = States.dead;
-            
         }
     }
 
@@ -342,11 +340,9 @@ public class Enemy : MonoBehaviour
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = UnityEngine.Random.insideUnitSphere * dist;
-
         randDirection += origin;
 
         NavMeshHit navHit;
-
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
 
         return navHit.position;

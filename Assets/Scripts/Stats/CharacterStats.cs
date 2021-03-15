@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -51,7 +52,8 @@ public class CharacterStats : MonoBehaviour
         _tInvulnerable = tInvulnerable;
 
         LvlUI.text = playerLevel.ToString();
-        
+        //Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Update()
@@ -63,27 +65,19 @@ public class CharacterStats : MonoBehaviour
         isEquipped = _isEquipped;
         if (dead) { return; }
         if (gotDMG) { return; }
-
-
-        //Debug.Log("Current XP: " + currentXp);
+        if (isTalking) { return; }
 
         //PRUEBAS
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            HealPlayer(5);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GetXp(10);
-        }
+        if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
+        
+        if (Input.GetKeyDown(KeyCode.H)) HealPlayer(5);
+        
+        if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
+        
         if (currentXp >= 100) GetXp(0);
 
         AttackAndCombo();
-
+   
         Invulnerable();
 
     }
@@ -101,7 +95,6 @@ public class CharacterStats : MonoBehaviour
         else
         {
             currentHealth += heal;
-            //Debug.Log(transform.name + " takes " + heal + " healing.");
             healthUI.fillAmount += heal / 100f;
             healing.Play();
         }
@@ -117,11 +110,9 @@ public class CharacterStats : MonoBehaviour
             xpUI.fillAmount = 0;
             LvlUI.text = playerLevel.ToString();
         }
-
         currentXp += xp;
         Debug.Log(currentXp);
         xpUI.fillAmount += xp / 100f;
-
     }
 
 
@@ -134,9 +125,7 @@ public class CharacterStats : MonoBehaviour
 
         currentHealth -= damage;
 
-        //Debug.Log(transform.name + " takes " + damage + " damage.");
         healthUI.fillAmount -= damage / 100f;
-        //Debug.Log(healthUI.fillAmount);
         //gotDMG = true;
         anims.SetBool("GotHit", true);
         //Nos hacemos invulnerables
@@ -152,15 +141,11 @@ public class CharacterStats : MonoBehaviour
 
     public void EndDMGAnim()
     {
-        if (gotDMG)
-        {
-            gotDMG = false;
-        }
+        if (gotDMG) gotDMG = false;
     }
 
     public virtual void Die()
     {
-        //Debug.Log(transform.name + " died");
         dead = true;
     }
 
@@ -204,7 +189,16 @@ public class CharacterStats : MonoBehaviour
                 tCombo = 1.5f;
             }
         }
+    }
 
+    public void Cinematica()
+    {
+        if (isTalking)
+        {
+            isVulnerable = true;
+            GetComponent<ThirdPersonCharacter>().enabled = false;
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+        }
     }
 
     public void Invulnerable()
@@ -222,10 +216,7 @@ public class CharacterStats : MonoBehaviour
 
     public void StopAttack()
     {
-        if (isAttacking)
-        {
-            isAttacking = false;
-        }
+        if (isAttacking) isAttacking = false;
     }
 
     public void UpdateAnim()

@@ -49,8 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLook: {fileID: 0}
   pauseMenu: {fileID: 0}
-  enemyPrefab: {fileID: 9140440130484147853, guid: e3e026663a0e7f243a03dba620698b49,
+  enemyPrefab: {fileID: 9140440130484147853, guid: d2fd82ba8d398e44ea4e95dbc78cfa3e,
     type: 3}
+  dialogueManager: {fileID: 0}
+  numEnemies: 1
 --- !u!114 &7843537274292660524
 MonoBehaviour:
   m_ObjectHideFlags: 0

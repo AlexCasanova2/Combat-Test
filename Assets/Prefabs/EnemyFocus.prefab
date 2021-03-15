@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9140440130484147852}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,10 +85,6 @@ PrefabInstance:
     - target: {fileID: 404400, guid: 2ef59bc5d753ebe4490b708befe65999, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9520566, guid: 2ef59bc5d753ebe4490b708befe65999, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9140440129334541200, guid: 2ef59bc5d753ebe4490b708befe65999,
         type: 3}
