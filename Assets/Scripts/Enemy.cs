@@ -20,12 +20,12 @@ public class Enemy : MonoBehaviour
     public float dmg;
     private float _vida;
     public float vidaMax, vidaMin;
+    public bool giveXP;
 
     [Header("Player")]
     public GameObject player;
     int _playerDmg;
     Stat playerDamage;
-    public Image xpUI;
 
     public float vida {
         get {
@@ -58,23 +58,28 @@ public class Enemy : MonoBehaviour
     public ParticleSystem damageHit;
 
     [Header("Lista de audio")]
-    public List<AudioClip> audioClips;
+    AudioSource audioSource;
+    public AudioClip[] audioClips;
+
 
     void Start()
     {
         vida = vidaMax;
         timer = wanderTimer;
         wTimer = 0;
+
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-
-        PlayAudio();
+        audioSource = GetComponent<AudioSource>();
     }
 
     
     void Update()
     {
-        //UpdateAnim();
+        if (giveXP == true) {
+            Debug.Log("ES TRUE");
+        } 
+
         switch (activeState)
         {
             case States.wait:
@@ -115,7 +120,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case States.attack:
-
+                
                 if (Vector3.Distance(target.transform.position, transform.position) > 1.5f)
                 {
                     activeState = States.chase;
@@ -142,6 +147,7 @@ public class Enemy : MonoBehaviour
                 transform.GetComponent<NavMeshAgent>().enabled = false;
                 transform.GetComponent<CapsuleCollider>().enabled = false;
                 Die();
+                
                 break;
         }
     }
@@ -206,7 +212,7 @@ public class Enemy : MonoBehaviour
                 anim.SetBool("Walk", false);
                 anim.SetBool("GotDMG", false);
                 anim.SetBool("Attack", false);
-
+                
                 if (aTimer >= attackTimer)
                 {
                     anim.SetBool("Attack", true);
@@ -268,19 +274,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void GiveXP()
-    {
-       // player.GetComponentInChildren<CharacterStats>().GetXp(10);
-    }
-
-    public void PlayAudio()
-    {
-        foreach (AudioClip a in audioClips)
-        {
-            //Debug.Log(a);
-        }
-    }
-
     public void OnTriggerEnter(Collider other)
     {    
         if (other.CompareTag("PlayerWeapon") && !inv)
@@ -294,18 +287,30 @@ public class Enemy : MonoBehaviour
             {
                 Debug.LogWarning("No existe el componente.");
             }
-
             TakeDamage(_playerDmg);
         }
     }
     public virtual void Die()
     {
+        giveXP = true;
         dead = true;
         Destroy(transform.parent.gameObject, 5f);
+    }
+    public void PlayDeadSound()
+    {
+        //Play Sound
+        audioSource.PlayOneShot(audioClips[1], 0.4f);
+    }
+    public void PlayAttackSound()
+    {
+        audioSource.PlayOneShot(audioClips[2], 0.4f);
     }
 
     public void TakeDamage(int damage)
     {
+        //Play sound
+        audioSource.PlayOneShot(audioClips[0], 0.4f);
+        audioSource.PlayOneShot(audioClips[3], 0.4f);
         activeState = States.gotdmg;
         damageHit.Play();
         //DamagePopup.Create(transform.position, (int)p.dmg, p.combo == 3);
@@ -384,5 +389,6 @@ public class Enemy : MonoBehaviour
     {
         anim.SetBool("Dead", false);
     }
+    
 
 }

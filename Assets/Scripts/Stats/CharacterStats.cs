@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Cinemachine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -8,6 +10,9 @@ public class CharacterStats : MonoBehaviour
     Animator anims;
 
     private int maxHealth = 100;
+    [Header("Camera")]
+    public CinemachineFreeLook playerCamera;
+    CinemachineFreeLook _playerCamera;
 
     public int currentHealth { get; private set; }
     [Header("Player Combat")]
@@ -20,10 +25,14 @@ public class CharacterStats : MonoBehaviour
     private bool isEquipped, _isEquipped;
     private int playerLevel = 1;
     private int currentXp;
+    
 
     public bool _isdead;
     public bool isTalking;
 
+    [Header("Sounds")]
+    AudioSource audioSource;
+    public AudioClip[] playerSounds;
 
     [Header("Stats")]
     public Stat damage;
@@ -42,43 +51,59 @@ public class CharacterStats : MonoBehaviour
     [Header("Enemies")]
     public GameObject enemy;
     float _enemyDmg;
+    private bool giveXp,_giveXp;
+    
 
     #endregion
 
     private void Awake()
     {
+        //Cursor.lockState = CursorLockMode.Locked;
         currentHealth = maxHealth;
-        anims = GetComponent<Animator>();
         _tInvulnerable = tInvulnerable;
+        
+        anims = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
 
         LvlUI.text = playerLevel.ToString();
-        //Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     private void Update()
     {
+        
         //Comprobamos si el jugador ha equipado un arma
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
 
+        //Comprobamos si el enemigo a muerto y nos da experiencia
+        _giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
+
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
+        giveXp = _giveXp;
         if (dead) { return; }
         if (gotDMG) { return; }
         if (isTalking) { return; }
 
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
-        
         if (Input.GetKeyDown(KeyCode.H)) HealPlayer(5);
-        
         if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
         
+        //Si la experiencia es igual o mayor a 100 reseteamos la barra
         if (currentXp >= 100) GetXp(0);
 
+        //Realizamos ataques con o sin combo
         AttackAndCombo();
-   
+        //Comprobamos si somos invulnerables
         Invulnerable();
+
+        Debug.Log("giveXp: " + giveXp);
+        if (giveXp)
+        {
+            Debug.Log("Give me xp");
+            GetXp(10);
+        }
 
     }
     private void LateUpdate()
@@ -102,6 +127,7 @@ public class CharacterStats : MonoBehaviour
 
     public void GetXp(int xp)
     {
+        
         if (currentXp >= 100)
         {
             playerLevel++;
@@ -118,6 +144,9 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        //Play al sonido
+        audioSource.PlayOneShot(playerSounds[0], 1f);
+
         //Restamos al daño el valor de la armadura
         damage -= armor.getValue();
         //Calculamos que si el valor de la armadura es mayor al daño el jugador no se cure.
@@ -146,6 +175,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Die()
     {
+        //Play al sonido
+        audioSource.PlayOneShot(playerSounds[1], 0.7f);
         dead = true;
     }
 
@@ -190,17 +221,6 @@ public class CharacterStats : MonoBehaviour
             }
         }
     }
-
-    public void Cinematica()
-    {
-        if (isTalking)
-        {
-            isVulnerable = true;
-            GetComponent<ThirdPersonCharacter>().enabled = false;
-            GetComponent<ThirdPersonUserControl>().enabled = false;
-        }
-    }
-
     public void Invulnerable()
     {
         if (isVulnerable)
@@ -211,6 +231,17 @@ public class CharacterStats : MonoBehaviour
                 isVulnerable = false;
                 tInvulnerable = _tInvulnerable;
             }
+        }
+    }
+
+    public void Cinematica()
+    {
+        if (isTalking)
+        {
+            isVulnerable = true;
+            GetComponent<ThirdPersonCharacter>().enabled = false;
+            GetComponent<ThirdPersonUserControl>().enabled = false;
+            _playerCamera.enabled = false;
         }
     }
 

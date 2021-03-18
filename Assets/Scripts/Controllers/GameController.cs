@@ -22,8 +22,6 @@ public class GameController : MonoBehaviour
     {
         if (isFinished) { return; }
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
-        //Debug.Log(isFinished);
-        InstantiateEnemy();
         StopMovement();
        
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -35,13 +33,11 @@ public class GameController : MonoBehaviour
 
     public void InstantiateEnemy()
     {
-        if (isFinished)
+
+        for (int i = 0; i < numEnemies; i++)
         {
-            for (int i = 0; i < numEnemies; i++)
-            {
-                Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                isFinished = false;
-            }
+            Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            isFinished = false;
         }
     }
 

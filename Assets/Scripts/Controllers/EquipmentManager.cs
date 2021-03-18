@@ -26,8 +26,6 @@ public class EquipmentManager : MonoBehaviour
     Equipment[] currentEquipment;
     // SkinnedMeshRenderer[] currentMeshes;
 
-   
-
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
 
@@ -48,12 +46,9 @@ public class EquipmentManager : MonoBehaviour
         {
             UnequipAll();
             AudioSource audio = GetComponent<AudioSource>();
-
             audio.Play();
         }
-
         //anim.SetBool("isEquipped", isEquipped);
-        
     }
     
     public void Equip(Equipment newItem)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,12 +16,13 @@ public class DialogueManager : MonoBehaviour
     public Camera cam1, cam2;
     public bool isFinished;
     public GameObject spawnEnemies;
-    PlayableDirector _spawnEnemies;
+    int vecescontadas = 0;
+    public GameObject animatorCamera;
     
+
     void Start()
     {
         sentences = new Queue<string>();
-        _spawnEnemies = spawnEnemies.GetComponent<PlayableDirector>();
     }
     private void Update()
     {
@@ -28,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(Dialogue dialogue)
     {
+        
         nameObj.SetActive(true);
         dialogueObj.SetActive(true);
         continueObj.SetActive(true);
@@ -41,23 +44,6 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
         DisplayNextSentence();
-
-    }
-    public void StartSecondDialogue(Dialogue dialogue)
-    {
-        nameObj.SetActive(true);
-        dialogueObj.SetActive(true);
-        continueObj.SetActive(true);
-
-        anim.SetBool("OpenClose", true);
-        nameText.text = dialogue.name;
-
-        sentences.Clear();
-        foreach (string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
-        DisplayNextSecondSentence();
 
     }
 
@@ -78,50 +64,37 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = sentece;
     }
 
-    public void DisplayNextSecondSentence()
-    {
-        if (sentences.Count == 0)
-        {
-            EndSecondDialogue();
-            return;
-        }
-        if (sentences.Count == sentences.Count)
-        {
-            cam1.depth = 1;
-            cam2.depth = 0;
-        }
-
-        string sentece = sentences.Dequeue();
-        dialogueText.text = sentece;
-    }
-
     public void EndDialogue()
     {
-          Debug.Log("First");
-          FindObjectOfType<CharacterStats>().isTalking = false;
-          anim.SetBool("OpenClose", false);
-          cam2.depth = 1;
-          cam1.depth = 0;
-          FindObjectOfType<ThirdPersonCharacter>().enabled = true;
-          FindObjectOfType<ThirdPersonUserControl>().enabled = true;
-          FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
-          if (!isFinished) isFinished = true;
-          _spawnEnemies.Play();
-    }
-
-    public void EndSecondDialogue()
-    {
-
-        Debug.Log("Second");
+        vecescontadas++;
         FindObjectOfType<CharacterStats>().isTalking = false;
         anim.SetBool("OpenClose", false);
         cam2.depth = 1;
         cam1.depth = 0;
         FindObjectOfType<ThirdPersonCharacter>().enabled = true;
         FindObjectOfType<ThirdPersonUserControl>().enabled = true;
+        FindObjectOfType<CharacterStats>().playerCamera.enabled = true;
         FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
-        if (!isFinished) isFinished = false;
+        if (!isFinished) isFinished = true;
+        Debug.Log(vecescontadas);
+        animatorCamera.GetComponent<Animator>().SetBool("EndDialogue", true);
+        SpawnEnemies();
+        
     }
-   
+
+    public void SpawnEnemies()
+    {
+        if (vecescontadas <= 1)
+        {
+            Debug.Log("Spawneo");
+            spawnEnemies.GetComponent<GameController>().InstantiateEnemy();
+
+        }
+        if (vecescontadas >= 2)
+        {
+            Debug.Log("No hagas nada");
+            
+        }
+    }
    
 }
