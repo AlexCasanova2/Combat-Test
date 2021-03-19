@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private float _vida;
     public float vidaMax, vidaMin;
     public bool giveXP;
+    public int xpToGive;
 
     [Header("Player")]
     public GameObject player;
@@ -61,13 +62,17 @@ public class Enemy : MonoBehaviour
     AudioSource audioSource;
     public AudioClip[] audioClips;
 
-
+    private void Awake()
+    {
+        xpToGive = 10;
+        giveXP = false;
+    }
     void Start()
     {
         vida = vidaMax;
         timer = wanderTimer;
         wTimer = 0;
-
+        
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -76,10 +81,6 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        if (giveXP == true) {
-            Debug.Log("ES TRUE");
-        } 
-
         switch (activeState)
         {
             case States.wait:
@@ -292,9 +293,10 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Die()
     {
-        giveXP = true;
+        //giveXP = true;
         dead = true;
         Destroy(transform.parent.gameObject, 5f);
+        Destroy(gameObject, 5f);
     }
     public void PlayDeadSound()
     {

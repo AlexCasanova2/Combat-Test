@@ -25,6 +25,7 @@ public class CharacterStats : MonoBehaviour
     private bool isEquipped, _isEquipped;
     private int playerLevel = 1;
     private int currentXp;
+
     
 
     public bool _isdead;
@@ -50,9 +51,10 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Enemies")]
     public GameObject enemy;
+    public GameObject enemyFocus;
     float _enemyDmg;
     private bool giveXp,_giveXp;
-    
+    int xpreceived;
 
     #endregion
 
@@ -65,22 +67,23 @@ public class CharacterStats : MonoBehaviour
         anims = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
-
+        xpreceived = enemyFocus.GetComponent<Enemy>().xpToGive;
+        Debug.Log(xpreceived);
         LvlUI.text = playerLevel.ToString();
     }
 
     private void Update()
     {
-        
         //Comprobamos si el jugador ha equipado un arma
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
 
         //Comprobamos si el enemigo a muerto y nos da experiencia
-        _giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
+        _giveXp = enemyFocus.GetComponent<Enemy>().giveXP;
 
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
         giveXp = _giveXp;
+
         if (dead) { return; }
         if (gotDMG) { return; }
         if (isTalking) { return; }
@@ -88,21 +91,20 @@ public class CharacterStats : MonoBehaviour
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
         if (Input.GetKeyDown(KeyCode.H)) HealPlayer(5);
-        if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
+        if (Input.GetKeyDown(KeyCode.X)) GetXp(5);
         
         //Si la experiencia es igual o mayor a 100 reseteamos la barra
-        if (currentXp >= 100) GetXp(0);
+        //if (currentXp >= 100) GetXp(0);
 
         //Realizamos ataques con o sin combo
         AttackAndCombo();
         //Comprobamos si somos invulnerables
         Invulnerable();
-
-        Debug.Log("giveXp: " + giveXp);
+        Debug.Log(giveXp);
         if (giveXp)
         {
-            Debug.Log("Give me xp");
-            GetXp(10);
+            
+            GetXp(xpreceived);
         }
 
     }
@@ -127,7 +129,8 @@ public class CharacterStats : MonoBehaviour
 
     public void GetXp(int xp)
     {
-        
+        Debug.Log("xpreceived: " + xpreceived);
+
         if (currentXp >= 100)
         {
             playerLevel++;
@@ -136,6 +139,7 @@ public class CharacterStats : MonoBehaviour
             xpUI.fillAmount = 0;
             LvlUI.text = playerLevel.ToString();
         }
+
         currentXp += xp;
         Debug.Log(currentXp);
         xpUI.fillAmount += xp / 100f;

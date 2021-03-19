@@ -43,7 +43,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.305
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -139,7 +139,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemyFocus
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -237,6 +237,11 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140440129334541200, guid: 2ef59bc5d753ebe4490b708befe65999,
+        type: 3}
+      propertyPath: xpToGive
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9140440129334541200, guid: 2ef59bc5d753ebe4490b708befe65999,
         type: 3}
