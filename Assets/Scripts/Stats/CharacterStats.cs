@@ -26,8 +26,6 @@ public class CharacterStats : MonoBehaviour
     private int playerLevel = 1;
     private int currentXp;
 
-    
-
     public bool _isdead;
     public bool isTalking;
 
@@ -51,10 +49,12 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Enemies")]
     public GameObject enemy;
-    public GameObject enemyFocus;
     float _enemyDmg;
     private bool giveXp,_giveXp;
     int xpreceived;
+
+    //Listado de enemigos con los que hemos interactuado
+    public List<GameObject> ListadoEnemigos;
 
     #endregion
 
@@ -67,7 +67,7 @@ public class CharacterStats : MonoBehaviour
         anims = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
-        xpreceived = enemyFocus.GetComponent<Enemy>().xpToGive;
+        xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
         Debug.Log(xpreceived);
         LvlUI.text = playerLevel.ToString();
     }
@@ -78,7 +78,7 @@ public class CharacterStats : MonoBehaviour
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
 
         //Comprobamos si el enemigo a muerto y nos da experiencia
-        _giveXp = enemyFocus.GetComponent<Enemy>().giveXP;
+        _giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
 
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
@@ -125,6 +125,17 @@ public class CharacterStats : MonoBehaviour
             healthUI.fillAmount += heal / 100f;
             healing.Play();
         }
+    }
+
+    public void AddEnemyToList(GameObject enemyGameObject)
+    {
+        ListadoEnemigos.Add(enemyGameObject);
+        Debug.Log("Añado el GameObject");
+    }
+    public void DeleteEnemyToList(GameObject deleteGameObject)
+    {
+        ListadoEnemigos.Remove(deleteGameObject);
+        Debug.Log("Elimino el GameObject");
     }
 
     public void GetXp(int xp)

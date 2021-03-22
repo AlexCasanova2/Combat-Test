@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
+using UnityEngine.AI;   
 
 public class Enemy : MonoBehaviour
 {
@@ -27,6 +24,7 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     int _playerDmg;
     Stat playerDamage;
+    bool addGameobject;
 
     public float vida {
         get {
@@ -81,6 +79,10 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
+        if (addGameobject)
+        {
+            //player.GetComponentInChildren<CharacterStats>().AddEnemyToList(gameObject);
+        }
         switch (activeState)
         {
             case States.wait:
@@ -289,14 +291,19 @@ public class Enemy : MonoBehaviour
                 Debug.LogWarning("No existe el componente.");
             }
             TakeDamage(_playerDmg);
+            addGameobject = true;
+            player.GetComponentInChildren<CharacterStats>().AddEnemyToList(gameObject);
+            Debug.Log("gameobject: " + gameObject);
         }
     }
+    
     public virtual void Die()
     {
         //giveXP = true;
         dead = true;
         Destroy(transform.parent.gameObject, 5f);
         Destroy(gameObject, 5f);
+        player.GetComponentInChildren<CharacterStats>().DeleteEnemyToList(gameObject);
     }
     public void PlayDeadSound()
     {
