@@ -68,7 +68,7 @@ public class CharacterStats : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
         xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
-        Debug.Log(xpreceived);
+        
         LvlUI.text = playerLevel.ToString();
     }
 
@@ -100,13 +100,6 @@ public class CharacterStats : MonoBehaviour
         AttackAndCombo();
         //Comprobamos si somos invulnerables
         Invulnerable();
-        Debug.Log(giveXp);
-        if (giveXp)
-        {
-            
-            GetXp(xpreceived);
-        }
-
     }
     private void LateUpdate()
     {
@@ -129,8 +122,13 @@ public class CharacterStats : MonoBehaviour
 
     public void AddEnemyToList(GameObject enemyGameObject)
     {
-        ListadoEnemigos.Add(enemyGameObject);
-        Debug.Log("Añado el GameObject");
+        bool alreadyExist = ListadoEnemigos.Contains(enemyGameObject);
+        if (!alreadyExist)
+        {
+            ListadoEnemigos.Add(enemyGameObject);
+            Debug.Log("Añado el GameObject");
+        }
+       
     }
     public void DeleteEnemyToList(GameObject deleteGameObject)
     {

@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
 
     Vector3 activeDestination;
-    public GameObject target = null;
+    
 
     public bool dead;
     public float dmg;
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     public int xpToGive;
 
     [Header("Player")]
-    public GameObject player;
+    public GameObject target = null;    
     int _playerDmg;
     Stat playerDamage;
     bool addGameobject;
@@ -79,6 +79,7 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
+        if (giveXP) return;
         if (addGameobject)
         {
             //player.GetComponentInChildren<CharacterStats>().AddEnemyToList(gameObject);
@@ -283,7 +284,8 @@ public class Enemy : MonoBehaviour
         {
             try
             {
-                playerDamage = player.GetComponentInChildren<CharacterStats>().damage;
+                playerDamage = target.GetComponent<CharacterStats>().damage;
+                target.GetComponent<CharacterStats>().AddEnemyToList(gameObject);
                 _playerDmg = playerDamage.getValue();
             }
             catch (NullReferenceException ex)
@@ -292,18 +294,23 @@ public class Enemy : MonoBehaviour
             }
             TakeDamage(_playerDmg);
             addGameobject = true;
-            player.GetComponentInChildren<CharacterStats>().AddEnemyToList(gameObject);
-            Debug.Log("gameobject: " + gameObject);
+            
         }
     }
     
     public virtual void Die()
     {
-        //giveXP = true;
+        giveXP = true;
         dead = true;
         Destroy(transform.parent.gameObject, 5f);
         Destroy(gameObject, 5f);
-        player.GetComponentInChildren<CharacterStats>().DeleteEnemyToList(gameObject);
+        
+        target.GetComponent<CharacterStats>().DeleteEnemyToList(gameObject);
+        
+    }
+    public void GiveXPToPlayer()
+    {
+        if (giveXP) target.GetComponent<CharacterStats>().GetXp(xpToGive);
     }
     public void PlayDeadSound()
     {
