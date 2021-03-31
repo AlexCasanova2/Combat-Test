@@ -25,13 +25,18 @@ public class CharacterStats : MonoBehaviour
     private bool isEquipped, _isEquipped;
     private int playerLevel = 1;
     private int currentXp;
+    public bool isBlocking;
 
     public bool _isdead;
     public bool isTalking;
+    //Escalar
+    private bool _canClimb;
 
     [Header("Sounds")]
     AudioSource audioSource;
     public AudioClip[] playerSounds;
+    public AudioClip[] footSteps;
+    public AudioClip[] attackSounds;
 
     [Header("Stats")]
     public Stat damage;
@@ -67,7 +72,7 @@ public class CharacterStats : MonoBehaviour
         anims = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
-        xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
+        //xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
         
         LvlUI.text = playerLevel.ToString();
     }
@@ -78,7 +83,7 @@ public class CharacterStats : MonoBehaviour
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
 
         //Comprobamos si el enemigo a muerto y nos da experiencia
-        _giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
+        //_giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
 
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
@@ -100,6 +105,10 @@ public class CharacterStats : MonoBehaviour
         AttackAndCombo();
         //Comprobamos si somos invulnerables
         Invulnerable();
+        //Hacemos Roll
+        Roll();
+        Block();
+        Climb();
     }
     private void LateUpdate()
     {
@@ -114,6 +123,8 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
+            //Play al sonido
+            audioSource.PlayOneShot(playerSounds[2], 0.7f);
             currentHealth += heal;
             healthUI.fillAmount += heal / 100f;
             healing.Play();
@@ -126,19 +137,19 @@ public class CharacterStats : MonoBehaviour
         if (!alreadyExist)
         {
             ListadoEnemigos.Add(enemyGameObject);
-            Debug.Log("Añado el GameObject");
+            //Debug.Log("Añado el GameObject");
         }
        
     }
     public void DeleteEnemyToList(GameObject deleteGameObject)
     {
         ListadoEnemigos.Remove(deleteGameObject);
-        Debug.Log("Elimino el GameObject");
+        //Debug.Log("Elimino el GameObject");
     }
 
     public void GetXp(int xp)
     {
-        Debug.Log("xpreceived: " + xpreceived);
+        //Debug.Log("xpreceived: " + xpreceived);
 
         if (currentXp >= 100)
         {
@@ -150,7 +161,7 @@ public class CharacterStats : MonoBehaviour
         }
 
         currentXp += xp;
-        Debug.Log(currentXp);
+        //Debug.Log(currentXp);
         xpUI.fillAmount += xp / 100f;
     }
 
@@ -201,14 +212,14 @@ public class CharacterStats : MonoBehaviour
             int enemyDmg = (int)_enemyDmg;
             TakeDamage(enemyDmg);
         }
+        
     }
 
     void AttackAndCombo()
     {
         //Si apretamos el boton de accion, no estamos atacando y tenemos equipada un arma empezamos el combo
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking && isEquipped)
+        if (Input.GetButtonDown("Attack") && !isAttacking && isEquipped)
         {
-
             if (combo < 3)
             {
                 combo++;
@@ -234,6 +245,33 @@ public class CharacterStats : MonoBehaviour
             }
         }
     }
+
+    public void Roll()
+    {
+        if (Input.GetButtonDown("Roll"))
+        {
+            anims.SetBool("Roll", true);
+        }
+    }
+
+    public void Climb()
+    {
+        
+        
+    }
+    
+
+    public void Block()
+    {
+        if (Input.GetButton("Block"))
+        {
+            isBlocking = true;
+        }
+        else{
+            isBlocking = false;
+        }
+    }
+
     public void Invulnerable()
     {
         if (isVulnerable)
@@ -269,5 +307,40 @@ public class CharacterStats : MonoBehaviour
         anims.SetBool("GotHit", gotDMG);
         anims.SetBool("Die", dead);
         anims.SetBool("isAttacking", isAttacking);
+        anims.SetBool("isBlocking", isBlocking);
+    }
+
+    public void Step()
+    {
+        AudioClip clip = GetRandomClip();
+        audioSource.PlayOneShot(clip);
+    }
+    private AudioClip GetRandomClip()
+    {
+        return footSteps[UnityEngine.Random.Range(0, footSteps.Length)];
+    }
+
+    public void PlayerAttack01()
+    {
+        //Play al sonido
+        audioSource.PlayOneShot(attackSounds[0], 0.7f);
+    }
+    public void PlayerAttack02()
+    {
+        //Play al sonido
+        audioSource.PlayOneShot(attackSounds[1], 0.7f);
+    }
+    public void PlayerAttack03()
+    {
+        //Play al sonido
+        audioSource.PlayOneShot(attackSounds[2], 0.7f);
+    }
+    public void RollingSound()
+    {
+        audioSource.PlayOneShot(playerSounds[3], 1f);
+    }
+    public void RollingSound2()
+    {
+        audioSource.PlayOneShot(playerSounds[4], 0.3f);
     }
 }

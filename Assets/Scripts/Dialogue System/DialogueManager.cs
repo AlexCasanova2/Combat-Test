@@ -76,7 +76,7 @@ public class DialogueManager : MonoBehaviour
         FindObjectOfType<CharacterStats>().playerCamera.enabled = true;
         FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
         if (!isFinished) isFinished = true;
-        Debug.Log(vecescontadas);
+        //Debug.Log(vecescontadas);
         animatorCamera.GetComponent<Animator>().SetBool("EndDialogue", true);
         SpawnEnemies();
         
@@ -86,7 +86,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (vecescontadas <= 1)
         {
-            Debug.Log("Spawneo");
+            //Debug.Log("Spawneo");
             spawnEnemies.GetComponent<GameController>().InstantiateEnemy();
 
         }

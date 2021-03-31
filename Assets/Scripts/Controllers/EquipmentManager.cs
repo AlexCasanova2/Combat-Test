@@ -22,9 +22,7 @@ public class EquipmentManager : MonoBehaviour
     public ItemPickUp basicSword;
     public ItemPickUp basicShield;
 
-    //public SkinnedMeshRenderer targetMesh;
     Equipment[] currentEquipment;
-    // SkinnedMeshRenderer[] currentMeshes;
 
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
@@ -37,18 +35,17 @@ public class EquipmentManager : MonoBehaviour
 
         int numSlots =  System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new Equipment[numSlots];
-        //currentMeshes = new SkinnedMeshRenderer[numSlots];
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.U) && isEquipped)
         {
             UnequipAll();
             AudioSource audio = GetComponent<AudioSource>();
             audio.Play();
         }
-        //anim.SetBool("isEquipped", isEquipped);
+        anim.SetBool("isEquipped", isEquipped);
     }
     
     public void Equip(Equipment newItem)
@@ -70,13 +67,11 @@ public class EquipmentManager : MonoBehaviour
         }
 
         currentEquipment[slotIndex] = newItem;
-        //SkinnedMeshRenderer newMesh = Instantiate<SkinnedMeshRenderer>(newItem.mesh);
-        //newMesh.transform.parent = targetMesh.transform;
 
-        //Debug.Log("Equipando" + newItem.name);
+        //Debug.Log("Equipando: " + newItem.name);
         //Debug.Log(newItem.GetType());
         
-        Debug.Log(currentEquipment[slotIndex]);
+        //Debug.Log(currentEquipment[slotIndex]);
         if (slotIndex == 0)
         {
             basicHelmet.Activar();
@@ -100,20 +95,13 @@ public class EquipmentManager : MonoBehaviour
             //Debug.Log("Estas equipando un escudo");
         }
 
-        /*newMesh.bones = targetMesh.bones;
-        newMesh.rootBone = targetMesh.rootBone;
-        currentMeshes[slotIndex] = newMesh;*/
-
     }
 
     public void Unequip(int slotIndex)
     {
         if (currentEquipment[slotIndex] != null)
         {
-            /*if (currentMeshes[slotIndex] != null)
-            {
-                Destroy(currentMeshes[slotIndex].gameObject);
-            }*/
+            isEquipped = false;
             Equipment oldItem = currentEquipment[slotIndex];
             inventory.Add(oldItem);
             basicHelmet.Desactivar();

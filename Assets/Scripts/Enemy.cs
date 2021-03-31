@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour
 
     public bool dead;
     public float dmg;
-    private float _vida;
-    public float vidaMax, vidaMin;
+    public float _vida;
+    private float vidaMax = 100, vidaMin = 0;
     public bool giveXP;
     public int xpToGive;
 
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        xpToGive = 10;
+        //xpToGive = 10;
         giveXP = false;
     }
     void Start()

@@ -21,7 +21,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        //Debug.Log("Interactuando con: " + transform.name);
+        Debug.Log("Interactuando con: " + transform.name);
     }
 
     private void Update()
@@ -38,16 +38,13 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public void Activar(){
-
+    public void Activar()
+    {
         activateGameobject.SetActive(true);
-    
     }
     public void Desactivar()
     {
-
         activateGameobject.SetActive(false);
-
     }
 
 

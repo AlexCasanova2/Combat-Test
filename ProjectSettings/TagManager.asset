@@ -8,6 +8,8 @@ TagManager:
   - Weapon
   - EnemyWeapon
   - Enemy
+  - Shield
+  - Climb
   layers:
   - Default
   - TransparentFX

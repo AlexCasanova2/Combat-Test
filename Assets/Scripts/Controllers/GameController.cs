@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
         StopMovement();
        
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (GameIsPaused) Resume();
             else Pause();
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
 
     public void StopMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetButtonDown("Cancel"))
         {
             UnityEngine.Cursor.visible = ! UnityEngine.Cursor.visible;
             
