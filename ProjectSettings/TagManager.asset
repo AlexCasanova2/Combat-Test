@@ -10,6 +10,9 @@ TagManager:
   - Enemy
   - Shield
   - Climb
+  - Ladder
+  - Helmet
+  - Sword
   layers:
   - Default
   - TransparentFX

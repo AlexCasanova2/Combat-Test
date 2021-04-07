@@ -8,7 +8,7 @@ public class menucontroller : MonoBehaviour
     
     public void NuevoJuego()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Opciones()

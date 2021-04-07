@@ -8,20 +8,23 @@ public class Item : ScriptableObject
     new public string name;
     public Sprite icon = null;
     public bool isDefaultItem = false;
-
+    
+    
     public virtual void Use()
     {
+        
+
         //Usar el item del inventario
-        //Debug.Log("Using: " + name);
+
+        if (name == "Health Potion")
+        {
+            Debug.Log("Using: " + name);
+            //playerPrefab.GetComponentInChildren<CharacterStats>().HealPlayer(5);
+        }
     }
 
     public void RemoveFromInventory()
     {
         Inventory.instance.Remove(this);
-    }
-
-    public void AddToEquipmentList()
-    {
-        //Añade este item a la lista de objetos equipados
     }
 }

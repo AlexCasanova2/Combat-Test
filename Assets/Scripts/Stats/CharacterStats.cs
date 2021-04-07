@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.ThirdPerson;
@@ -30,7 +31,7 @@ public class CharacterStats : MonoBehaviour
     public bool _isdead;
     public bool isTalking;
     //Escalar
-    private bool _canClimb;
+    public bool _canClimb;
 
     [Header("Sounds")]
     AudioSource audioSource;
@@ -41,6 +42,7 @@ public class CharacterStats : MonoBehaviour
     [Header("Stats")]
     public Stat damage;
     public Stat armor;
+    public int gold;
 
     [Header("Visual")]
     public GameObject gameManager;
@@ -52,11 +54,14 @@ public class CharacterStats : MonoBehaviour
     public Text LvlUI;
     public ParticleSystem damageHit;
 
+    public GameObject getxpText;
+    Animator gettingxp;
+    public TextMeshProUGUI text;
+
     [Header("Enemies")]
     public GameObject enemy;
     float _enemyDmg;
     private bool giveXp,_giveXp;
-    int xpreceived;
 
     //Listado de enemigos con los que hemos interactuado
     public List<GameObject> ListadoEnemigos;
@@ -73,7 +78,9 @@ public class CharacterStats : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         _playerCamera = playerCamera.gameObject.GetComponent<CinemachineFreeLook>();
         //xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
-        
+
+        gettingxp = getxpText.GetComponent<Animator>();
+
         LvlUI.text = playerLevel.ToString();
     }
 
@@ -82,13 +89,11 @@ public class CharacterStats : MonoBehaviour
         //Comprobamos si el jugador ha equipado un arma
         _isEquipped = gameManager.GetComponent<EquipmentManager>().isEquipped;
 
-        //Comprobamos si el enemigo a muerto y nos da experiencia
-        //_giveXp = enemy.GetComponentInChildren<Enemy>().giveXP;
-
         //Igualamos el valor de la variable
         isEquipped = _isEquipped;
         giveXp = _giveXp;
 
+        
         if (dead) { return; }
         if (gotDMG) { return; }
         if (isTalking) { return; }
@@ -96,10 +101,7 @@ public class CharacterStats : MonoBehaviour
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
         if (Input.GetKeyDown(KeyCode.H)) HealPlayer(5);
-        if (Input.GetKeyDown(KeyCode.X)) GetXp(5);
-        
-        //Si la experiencia es igual o mayor a 100 reseteamos la barra
-        //if (currentXp >= 100) GetXp(0);
+        if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
 
         //Realizamos ataques con o sin combo
         AttackAndCombo();
@@ -159,6 +161,9 @@ public class CharacterStats : MonoBehaviour
             xpUI.fillAmount = 0;
             LvlUI.text = playerLevel.ToString();
         }
+        //havexp = true;
+        gettingxp.SetBool("haveXp", true);
+        text.SetText("+" + xp + " xp");
 
         currentXp += xp;
         //Debug.Log(currentXp);
@@ -196,6 +201,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (gotDMG) gotDMG = false;
     }
+    
 
     public virtual void Die()
     {
@@ -256,7 +262,10 @@ public class CharacterStats : MonoBehaviour
 
     public void Climb()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Y) && _canClimb)
+        {
+            anims.SetBool("Climb", true);
+        }
         
     }
     
@@ -308,6 +317,8 @@ public class CharacterStats : MonoBehaviour
         anims.SetBool("Die", dead);
         anims.SetBool("isAttacking", isAttacking);
         anims.SetBool("isBlocking", isBlocking);
+
+        //gettingxp.SetBool("haveXp", havexp);
     }
 
     public void Step()

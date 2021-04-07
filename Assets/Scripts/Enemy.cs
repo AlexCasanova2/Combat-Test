@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;   
 
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     int _playerDmg;
     Stat playerDamage;
     bool addGameobject;
+
 
     public float vida {
         get {
@@ -62,7 +64,6 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        //xpToGive = 10;
         giveXP = false;
     }
     void Start()
@@ -405,6 +406,4 @@ public class Enemy : MonoBehaviour
     {
         anim.SetBool("Dead", false);
     }
-    
-
 }

@@ -6,7 +6,6 @@ public class Climb : MonoBehaviour
 {
     public bool canClimb;
 
-
     void Start()
     {
         

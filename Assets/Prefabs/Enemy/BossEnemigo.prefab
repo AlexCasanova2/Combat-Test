@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5991352850556605755
 Transform:
   m_ObjectHideFlags: 0
@@ -85,6 +85,34 @@ PrefabInstance:
     - target: {fileID: 497534, guid: 388fa61abd880a549864058f895c8045, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189662, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_TagString
+      value: EnemyWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5149046
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0084329
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Size.z
+      value: 1.7533127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Center.x
+      value: 0.008054356
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Center.y
+      value: 0.66548645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120189664, guid: 388fa61abd880a549864058f895c8045, type: 3}
+      propertyPath: m_Center.z
+      value: 0.33969215
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 388fa61abd880a549864058f895c8045, type: 3}

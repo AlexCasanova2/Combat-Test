@@ -19,9 +19,29 @@ public class Interactable : MonoBehaviour
 
     bool hasInteracted = false;
 
+    //UI Objectives
+    public GameObject helmetImage;
+    public GameObject shieldImage;
+    public GameObject swordImage;
+
     public virtual void Interact()
     {
-        Debug.Log("Interactuando con: " + transform.name);
+        Debug.Log("Interactuando con: " + transform.name + " " + transform.tag);
+
+        if (transform.CompareTag("Helmet"))
+        {
+            helmetImage.SetActive(true);
+        }
+        if (transform.CompareTag("Shield"))
+        {
+            shieldImage.SetActive(true);
+        }
+        if (transform.CompareTag("Sword"))
+        {
+            swordImage.SetActive(true);
+        }
+
+
     }
 
     private void Update()
@@ -71,19 +91,14 @@ public class Interactable : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
-
-
-    
-
-
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             pickup.SetActive(true);
             textui.text = "Press 'E' to pick up " + transform.name;
         }
-        if (Input.GetKeyDown(KeyCode.E) && other.tag == "Player")
+        if (Input.GetKeyDown(KeyCode.E) && other.CompareTag("Player"))
         {
             Interact();
             pickup.SetActive(false);

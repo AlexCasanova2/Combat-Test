@@ -16,6 +16,7 @@ public class EquipmentManager : MonoBehaviour
 
     #endregion
     public bool isEquipped;
+    public bool haveEquip;
 
     public Animator anim;
     public ItemPickUp basicHelmet;
@@ -39,7 +40,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U) && isEquipped)
+        if (Input.GetKeyDown(KeyCode.U) && isEquipped || Input.GetKeyDown(KeyCode.U) && haveEquip)
         {
             UnequipAll();
             AudioSource audio = GetComponent<AudioSource>();
@@ -74,13 +75,9 @@ public class EquipmentManager : MonoBehaviour
         //Debug.Log(currentEquipment[slotIndex]);
         if (slotIndex == 0)
         {
+            haveEquip = true;
             basicHelmet.Activar();
             //Debug.Log("Estas equipando un casco");
-
-            if (Input.GetMouseButton(0))
-            {
-                
-            }
         }
         if (slotIndex == 3)
         {
@@ -91,6 +88,7 @@ public class EquipmentManager : MonoBehaviour
         }
         if (slotIndex == 4)
         {
+            haveEquip = true;
             basicShield.Activar();
             //Debug.Log("Estas equipando un escudo");
         }
@@ -102,6 +100,7 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             isEquipped = false;
+            haveEquip = false;
             Equipment oldItem = currentEquipment[slotIndex];
             inventory.Add(oldItem);
             basicHelmet.Desactivar();

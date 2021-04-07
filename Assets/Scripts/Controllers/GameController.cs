@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -6,9 +7,13 @@ public class GameController : MonoBehaviour
     public CinemachineFreeLook cameraLook;
     CinemachineFreeLook hola;
     public GameObject pauseMenu;
+    public GameObject deadMenu;
 
     public static bool GameIsPaused = false;
 
+    public GameObject playerPrefab;
+    bool _playerDead;
+    bool _giveXp;
     public GameObject enemyPrefab, dialogueManager;
     public int numEnemies;
     bool isFinished;
@@ -20,6 +25,9 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        //Check if player is dead
+        _playerDead = playerPrefab.GetComponentInChildren<CharacterStats>().dead;
+
         if (isFinished) { return; }
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
         StopMovement();
@@ -29,6 +37,8 @@ public class GameController : MonoBehaviour
             if (GameIsPaused) Resume();
             else Pause();
         }
+
+        Dead();
     }
 
     public void InstantiateEnemy()
@@ -38,6 +48,14 @@ public class GameController : MonoBehaviour
         {
             Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             isFinished = false;
+        }
+    }
+
+    void Dead()
+    {
+        if (_playerDead)
+        {
+            deadMenu.SetActive(true);
         }
     }
 
