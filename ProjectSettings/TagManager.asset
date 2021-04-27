@@ -13,6 +13,10 @@ TagManager:
   - Ladder
   - Helmet
   - Sword
+  - Collide
+  - Crouch
+  - Interact
+  - FinishQuest
   layers:
   - Default
   - TransparentFX
@@ -25,9 +29,9 @@ TagManager:
   - 
   - EnemyWeapon
   - PlayerWeapon
-  - 
-  - 
-  - 
+  - PostProcessingVolumes
+  - Enemy
+  - Player
   - 
   - 
   - 

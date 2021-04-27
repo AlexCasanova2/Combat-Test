@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1487803473}
   - component: {fileID: 1487803476}
   - component: {fileID: 1487803477}
+  - component: {fileID: 2019133411}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLook: {fileID: 0}
   pauseMenu: {fileID: 0}
-  enemyPrefab: {fileID: 9140440130484147853, guid: d2fd82ba8d398e44ea4e95dbc78cfa3e,
+  deadMenu: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 6037277302535390459, guid: 88b10d348ab3a144284aace1d1feeccc,
     type: 3}
   dialogueManager: {fileID: 0}
   numEnemies: 1
@@ -190,10 +193,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9b5776ee638dd41a5566feee426f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEquipped: 1
+  isEquipped: 0
+  haveEquip: 0
+  anim: {fileID: 0}
   basicHelmet: {fileID: 0}
   basicSword: {fileID: 0}
   basicShield: {fileID: 0}
+--- !u!114 &2019133411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843537274292660527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836670ac0511b42409c67f4dead66225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7843537274840345020
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class GameController : MonoBehaviour
 {
@@ -16,7 +17,18 @@ public class GameController : MonoBehaviour
     bool _giveXp;
     public GameObject enemyPrefab, dialogueManager;
     public int numEnemies;
+    public Vector3 position;
     bool isFinished;
+
+    public bool tutorialUI;
+    public GameObject tutorialPopup;
+
+    [Header("Engines Amount")]
+    public bool canActivate;
+    public int totalEnginesCompleted;
+
+    [Header("Check Keys")]
+    public bool haveKeys;
 
     void Start()
     {
@@ -38,15 +50,32 @@ public class GameController : MonoBehaviour
             else Pause();
         }
 
+        if (Input.GetButtonDown("Inventory") && tutorialUI)
+        {
+            tutorialPopup.SetActive(false);
+        }
+
         Dead();
     }
+
+    public void ActivateDoor()
+    {
+        if(totalEnginesCompleted >= 3){
+            canActivate = true;
+        }
+    }
+
 
     public void InstantiateEnemy()
     {
 
         for (int i = 0; i < numEnemies; i++)
         {
-            Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject var = Instantiate(enemyPrefab, position, Quaternion.identity);
+
+            var.GetComponentInChildren<Enemy>().target = playerPrefab.transform.GetChild(1).gameObject;
+            var.GetComponentInChildren<Enemy>().activeState = Enemy.States.chase;
+
             isFinished = false;
         }
     }

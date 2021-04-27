@@ -87,7 +87,7 @@ public class DialogueManager : MonoBehaviour
         if (vecescontadas <= 1)
         {
             //Debug.Log("Spawneo");
-            spawnEnemies.GetComponent<GameController>().InstantiateEnemy();
+            spawnEnemies.GetComponent<InstantiateEnemies>().InstantiateEnemy();
 
         }
         if (vecescontadas >= 2)

@@ -7,6 +7,7 @@ public class ShowGUI : MonoBehaviour
     public GameObject text;
     private Text _text;
     private int contador;
+    public string textToShow;
     void Start()
     {
         contador = 0;
@@ -16,9 +17,9 @@ public class ShowGUI : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && coll.tag == "Crouch")
+        if (other.CompareTag("Player") && coll.CompareTag("Crouch"))
         {
-            _text.text = "Press 'C' to crouch";
+            _text.text = textToShow;
             AllToDo();
         }
     }

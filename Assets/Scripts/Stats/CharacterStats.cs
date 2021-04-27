@@ -175,7 +175,6 @@ public class CharacterStats : MonoBehaviour
     {
         //Play al sonido
         audioSource.PlayOneShot(playerSounds[0], 1f);
-
         //Restamos al daño el valor de la armadura
         damage -= armor.getValue();
         //Calculamos que si el valor de la armadura es mayor al daño el jugador no se cure.
@@ -212,13 +211,13 @@ public class CharacterStats : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //añadir si no estoy bloqueando
         if (other.CompareTag("EnemyWeapon"))
         {
             _enemyDmg = enemy.GetComponentInChildren<Enemy>().dmg;
             int enemyDmg = (int)_enemyDmg;
             TakeDamage(enemyDmg);
         }
-        
     }
 
     void AttackAndCombo()
@@ -232,7 +231,6 @@ public class CharacterStats : MonoBehaviour
                 isAttacking = true;
                 tCombo = 1.5f;
             }
-
         }
         if (combo > 0)
         {
@@ -317,7 +315,6 @@ public class CharacterStats : MonoBehaviour
         anims.SetBool("Die", dead);
         anims.SetBool("isAttacking", isAttacking);
         anims.SetBool("isBlocking", isBlocking);
-
         //gettingxp.SetBool("haveXp", havexp);
     }
 

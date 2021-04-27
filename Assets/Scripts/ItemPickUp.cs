@@ -21,9 +21,19 @@ public class ItemPickUp : Interactable
         if (wasPickedUp)
         {
             Destroy(gameObject);
+            Hide();
         }
+
         
     }
+    public void Hide()
+    {
+        if (Input.GetButtonDown("Inventory") )
+        {
+            Debug.Log("Lo desactivo");
+            tutorialUI.SetActive(false);
+        }
+    }
 
-    
+
 }

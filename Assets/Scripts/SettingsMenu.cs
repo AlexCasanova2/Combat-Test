@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public GameObject optionsPanel;
 
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown resolutionDropdown;
+    //public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
     private void Start()
@@ -82,6 +83,11 @@ public class SettingsMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void Test()
+    {
+        Debug.Log("Has clicado");
     }
    
 }

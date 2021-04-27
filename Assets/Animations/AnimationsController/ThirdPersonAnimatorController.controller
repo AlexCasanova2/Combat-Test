@@ -2005,6 +2005,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Roll
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: isEquipped
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8817240194705310458}
   m_Solo: 0
@@ -3211,7 +3214,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isEquipped
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8635072332138445264}
   m_Solo: 0

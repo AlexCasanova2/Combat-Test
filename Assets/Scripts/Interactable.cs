@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
@@ -19,14 +20,26 @@ public class Interactable : MonoBehaviour
 
     bool hasInteracted = false;
 
+    [Header("UI")]
     //UI Objectives
     public GameObject helmetImage;
     public GameObject shieldImage;
     public GameObject swordImage;
 
+    [Header("UI Tutorial")]
+    public GameObject tutorialUI;
+    //public Text tutorialText;
+    public TextMeshProUGUI tutorialText;
+    public string textToShow;
+    [SerializeField]
+    bool isActivated;
+    public GameObject gameController;
+
     public virtual void Interact()
     {
-        Debug.Log("Interactuando con: " + transform.name + " " + transform.tag);
+        //Debug.Log("Interactuando con: " + transform.name + " " + transform.tag);
+
+        ShowTutorial();
 
         if (transform.CompareTag("Helmet"))
         {
@@ -57,6 +70,15 @@ public class Interactable : MonoBehaviour
             }
         }
     }
+
+    public void ShowTutorial()
+    {
+        tutorialUI.SetActive(true);
+        tutorialText.SetText(textToShow);
+        gameController.GetComponent<GameController>().tutorialUI = true;
+        isActivated = true;
+    }
+
 
     public void Activar()
     {
@@ -107,7 +129,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             pickup.SetActive(false);
             //textui.text = "Press 'E' to pick up " + transform.name;
