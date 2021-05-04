@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class QuestGiver : MonoBehaviour
@@ -13,7 +14,16 @@ public class QuestGiver : MonoBehaviour
     public Text experienceText;
     public Text goldText;
 
+    [Header("Popup")]
+    public GameObject newQuest;
+    public TextMeshProUGUI questText;
+    
+    Animator anim;
 
+    private void Start()
+    {
+        anim = newQuest.GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,5 +47,10 @@ public class QuestGiver : MonoBehaviour
         quest.isActive = true;
         //Le damos la quest al player
         player.GetComponentInChildren<PlayerQuests>().quests.Add(quest);
+        gameObject.SetActive(false);
+
+        newQuest.SetActive(true);
+        questText.SetText(quest.description);
+        anim.SetBool("NewQuest", true);
     }
 }

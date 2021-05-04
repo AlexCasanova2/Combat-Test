@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 439472}
   - component: {fileID: 3316974}
   - component: {fileID: 2381860}
+  - component: {fileID: 8426046806362183668}
   m_Layer: 0
   m_Name: SM_Prop_Forge_FirePit_01
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &8426046806362183668
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8839576, y: 1.2086989, z: 2.9010274}
+  m_Center: {x: 0.000010967255, y: 0.60434943, z: -0.0000019073484}

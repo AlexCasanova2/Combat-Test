@@ -7,9 +7,9 @@ public class AnimateDoor : MonoBehaviour
     Animator anim;
     AudioSource audioSource;
     bool _isFinished;
-    public GameObject engine;
+    public GameObject engine, instantiateBoss;
     int totalEnginesCompleted;
-    public GameObject checkObjective;
+    //public GameObject checkObjective;
 
     [Header("GameController")]
     public GameObject gameController;
@@ -38,16 +38,16 @@ public class AnimateDoor : MonoBehaviour
 
     public void CheckAnim()
     {
-        
-            anim.SetBool("isFinished", true);
-          
+        anim.SetBool("isFinished", true); 
     }
     public void CheckObjective()
     {
-        checkObjective.SetActive(true);
+        
+        //checkObjective.SetActive(true);
     }
     public void PlaySound()
     {
+        instantiateBoss.GetComponent<InstantiateEnemyBoss>().canInstantiate = true;
         audioSource.Play();
     }
 }

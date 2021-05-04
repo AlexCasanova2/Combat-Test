@@ -17,18 +17,26 @@ public class ShowGUI : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && coll.CompareTag("Crouch"))
+        if (other.CompareTag("Player") && coll.CompareTag("Pickup"))
         {
             _text.text = textToShow;
-            AllToDo();
+            text.SetActive(true);
+            //Pickup();
+            //AllToDo();
+        }
+
+        if (other.CompareTag("Player") && coll.CompareTag("Pickup") && Input.GetButton("Interact"))
+        {
+            Pickup();
         }
     }
     private void OnTriggerExit(Collider other)
     {
         text.SetActive(false);
-        Destroy(coll);
+        //Destroy(coll);
     }
 
+    //Funcion para que desaparezca el mensaje en un tiempo determinado
     public void AllToDo()
     {
         text.SetActive(true);
@@ -39,6 +47,13 @@ public class ShowGUI : MonoBehaviour
             Destroy(coll);
             text.SetActive(false);
         }
+    }
+
+    //Funcion para que desaparezca el mensaje cuando se interactue
+    public void Pickup()
+    {
+        text.SetActive(false);
+        Destroy(coll);
     }
 
 }

@@ -22,6 +22,7 @@ public class CutsceneEvents : MonoBehaviour
     Animator animatorCanvas;
     public GameObject lightContainer;
     Light thunderLight;
+    bool _isEnded;
 
     void Start()
     {
@@ -30,8 +31,13 @@ public class CutsceneEvents : MonoBehaviour
     }
 
     void Update()
-    {
-        
+    {   
+        _isEnded = canvas.GetComponent<CutSceneController>().isEnded;
+        if (_isEnded) return;
+        if (_isEnded)
+        {
+            LoadMainScene();
+        }
     }
 
 
@@ -86,6 +92,11 @@ public class CutsceneEvents : MonoBehaviour
         animatorCanvas.SetBool("showTitle", true);
         StartCoroutine(LoadScene());
         
+    }
+
+    public void LoadMainScene()
+    {
+        SceneManager.LoadSceneAsync("MainScene");
     }
     
 }

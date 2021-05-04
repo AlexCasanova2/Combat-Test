@@ -60,7 +60,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: haveKeys
+    m_ConditionEvent: canEnter
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5420375523588547014}
@@ -85,7 +85,7 @@ AnimatorController:
   m_Name: SM_Env_DoorDouble_Round_03
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: haveKeys
+  - m_Name: canEnter
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 471282}
   - component: {fileID: 3333582}
   - component: {fileID: 2312466}
+  - component: {fileID: 6956887293698093328}
   m_Layer: 0
   m_Name: SM_Env_Wall_Fireplace_Gap_01
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6956887293698093328
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174664}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: a84266a472b7e984cb8e5a92dfc38c82, type: 3}

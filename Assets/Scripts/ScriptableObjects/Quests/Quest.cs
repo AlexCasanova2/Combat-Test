@@ -18,7 +18,7 @@ public class Quest
     public void Complete()
     {
         isActive = false;
-        Debug.Log(title + " was completed.");
+        //Debug.Log(title + " was completed.");
         
     }
 }

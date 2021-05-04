@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private float vidaMax = 100, vidaMin = 0;
     public bool giveXP;
     public int xpToGive;
+    public int goldToGive;
 
     [Header("Player")]
     public GameObject target = null;    
@@ -311,8 +312,15 @@ public class Enemy : MonoBehaviour
     }
     public void GiveXPToPlayer()
     {
-        if (giveXP) target.GetComponent<CharacterStats>().GetXp(xpToGive);
+        if (giveXP)
+        {
+            //Damos experiencia
+            target.GetComponent<CharacterStats>().GetXp(xpToGive);
+            //También damos oro
+            target.GetComponent<CharacterStats>().GetGold(goldToGive);
+        }
     }
+    
     public void PlayDeadSound()
     {
         //Play Sound

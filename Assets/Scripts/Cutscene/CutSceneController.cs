@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class CutSceneController : MonoBehaviour
 {
+    public bool isEnded;
     public void LoadMainScene()
     {
-        SceneManager.LoadSceneAsync(3);
+        isEnded = true;
+        Debug.Log("Cargando...");
     }
 }

@@ -5,9 +5,10 @@ public class AnimateObject : MonoBehaviour
 {
     Animator anim;
     AudioSource audioSource;
-    public GameObject pickup;
+    public GameObject pickup, playerPrefab;
     public Text textui;
     bool isActive;
+    public int goldAmount;
     
 
     void Start()
@@ -44,5 +45,10 @@ public class AnimateObject : MonoBehaviour
     public void PlaySound()
     {
         audioSource.Play();
+    }
+
+    public void GiveGold()
+    {
+        playerPrefab.GetComponentInChildren<CharacterStats>().GetGold(goldAmount);
     }
 }

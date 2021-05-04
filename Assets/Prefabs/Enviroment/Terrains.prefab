@@ -40,7 +40,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589063478349}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 9d74bcfbfede5684dbe3eeb9bbf48af6, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -63,6 +63,7 @@ Terrain:
   m_ScaleInLightmap: 0.256
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186589063478350
 TerrainCollider:
@@ -115,7 +116,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589154097947}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: fc21e772b7704314ea405c814dfbd0a8, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -138,6 +139,7 @@ Terrain:
   m_ScaleInLightmap: 0.256
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186589154097948
 TerrainCollider:
@@ -190,7 +192,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589183717610}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: daaa3a6e62102ae4f84ee69193b70c7c, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -213,6 +215,7 @@ Terrain:
   m_ScaleInLightmap: 0.6033978
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186589183717611
 TerrainCollider:
@@ -248,7 +251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589280400480}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -303,7 +306,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589335654106}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: c2318607110951e4fb4c96742278e830, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -326,6 +329,7 @@ Terrain:
   m_ScaleInLightmap: 0.6033978
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186589335654107
 TerrainCollider:
@@ -378,7 +382,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186589865666599}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: a2eb7856538e7eb4b83fbdfdeb728b6a, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 602
@@ -401,6 +405,7 @@ Terrain:
   m_ScaleInLightmap: 0.256
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186589865666584
 TerrainCollider:
@@ -453,7 +458,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186590357935942}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 49acc5b4b14db4046b4a914a335976f6, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -476,6 +481,7 @@ Terrain:
   m_ScaleInLightmap: 0.0256
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186590357935943
 TerrainCollider:
@@ -528,7 +534,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186590539374029}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: b95a7a3d054443d40b6c33c3c81a7b56, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -551,6 +557,7 @@ Terrain:
   m_ScaleInLightmap: 0.3059785
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186590539374030
 TerrainCollider:
@@ -603,7 +610,7 @@ Terrain:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475186590798250328}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: eb41ae8eababe6d44ad17cb6f4abc274, type: 2}
   m_TreeDistance: 1000
   m_TreeBillboardDistance: 1000
@@ -626,6 +633,7 @@ Terrain:
   m_ScaleInLightmap: 0.256
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
+  m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
 --- !u!154 &4475186590798250329
 TerrainCollider:

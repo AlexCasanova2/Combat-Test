@@ -22,6 +22,11 @@ public class menucontroller : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void ReiniciarNivel()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     public void Opciones()
     {
         SceneManager.LoadScene("Opciones");

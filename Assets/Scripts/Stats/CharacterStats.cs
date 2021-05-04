@@ -26,6 +26,8 @@ public class CharacterStats : MonoBehaviour
     private bool isEquipped, _isEquipped;
     private int playerLevel = 1;
     private int currentXp;
+    private int currentGold = 0;
+    private string _currentGold;
     public bool isBlocking;
 
     public bool _isdead;
@@ -54,9 +56,18 @@ public class CharacterStats : MonoBehaviour
     public Text LvlUI;
     public ParticleSystem damageHit;
 
+    [Header("Experience")]
     public GameObject getxpText;
     Animator gettingxp;
     public TextMeshProUGUI text;
+
+    [Header("Gold")]
+    public GameObject getGoldText;
+    Animator gettingGold;
+    public TextMeshProUGUI goldText;
+
+    public TextMeshProUGUI currentGoldText;
+
 
     [Header("Enemies")]
     public GameObject enemy;
@@ -80,6 +91,7 @@ public class CharacterStats : MonoBehaviour
         //xpreceived = enemy.GetComponentInChildren<Enemy>().xpToGive;
 
         gettingxp = getxpText.GetComponent<Animator>();
+        gettingGold = getGoldText.GetComponent<Animator>();
 
         LvlUI.text = playerLevel.ToString();
     }
@@ -111,6 +123,11 @@ public class CharacterStats : MonoBehaviour
         Roll();
         Block();
         Climb();
+
+        //Oro actual
+        _currentGold = currentGold.ToString();
+        currentGoldText.SetText(_currentGold);
+
     }
     private void LateUpdate()
     {
@@ -168,6 +185,18 @@ public class CharacterStats : MonoBehaviour
         currentXp += xp;
         //Debug.Log(currentXp);
         xpUI.fillAmount += xp / 100f;
+    }
+
+    public void GetGold(int gold)
+    {
+        //Notification Text
+        currentGold += gold;
+        gettingGold.SetBool("haveGold", true);
+        goldText.SetText("+ " + gold + " gold");
+
+        //UI Text
+        _currentGold = currentGold.ToString();
+        currentGoldText.SetText(_currentGold);
     }
 
 

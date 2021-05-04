@@ -9,14 +9,14 @@ public class LocationReach : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("playerEntered: " + playerEntered);
+        //Debug.Log("playerEntered: " + playerEntered);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerEntered = true;
-            Debug.Log("playerEntered: " + playerEntered);
+            //Debug.Log("playerEntered: " + playerEntered);
         }
     }
 }

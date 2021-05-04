@@ -56,6 +56,12 @@ MonoBehaviour:
     type: 3}
   dialogueManager: {fileID: 0}
   numEnemies: 1
+  position: {x: -0.8, y: 183, z: 7}
+  tutorialUI: 0
+  tutorialPopup: {fileID: 0}
+  canActivate: 0
+  totalEnginesCompleted: 0
+  haveKeys: 0
 --- !u!114 &7843537274292660524
 MonoBehaviour:
   m_ObjectHideFlags: 0

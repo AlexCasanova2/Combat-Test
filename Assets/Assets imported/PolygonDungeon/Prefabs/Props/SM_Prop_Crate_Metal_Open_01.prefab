@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 405960}
   - component: {fileID: 3317780}
   - component: {fileID: 2320408}
+  - component: {fileID: 1721829999973398488}
   m_Layer: 0
   m_Name: SM_Prop_Crate_Metal_Open_01
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1721829999973398488
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1007688, y: 1.1007681, z: 1.1007688}
+  m_Center: {x: 0.0000076293945, y: 0.55038404, z: -0.0000076293945}
