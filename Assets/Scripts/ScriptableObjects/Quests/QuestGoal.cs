@@ -12,8 +12,13 @@ public class QuestGoal
 
     public bool reachedLocation;
 
-    
+    public bool haveTalked;
 
+    
+    public bool isTalked()
+    {
+        return haveTalked;
+    }
     public bool isReached()
     {
         return reachedLocation;
@@ -41,6 +46,14 @@ public class QuestGoal
         if (goalType == GoalType.Explore)
         {
             reachedLocation = true;
+        }
+    }
+
+    public void Talked()
+    {
+        if (goalType == GoalType.Talk)
+        {
+            haveTalked = true;
         }
     }
 }

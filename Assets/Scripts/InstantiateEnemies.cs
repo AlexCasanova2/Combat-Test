@@ -12,7 +12,7 @@ public class InstantiateEnemies : MonoBehaviour
 
         for (int i = 0; i < numEnemies; i++)
         {
-            GameObject var = Instantiate(enemyPrefab, transform.localPosition, Quaternion.identity);
+            GameObject var = Instantiate(enemyPrefab, gameObject.transform.position, Quaternion.identity);
 
             var.GetComponentInChildren<Enemy>().target = playerPrefab.transform.GetChild(1).gameObject;
             var.GetComponentInChildren<Enemy>().activeState = Enemy.States.chase;

@@ -18,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     public GameObject spawnEnemies;
     int vecescontadas = 0;
     public GameObject animatorCamera;
+
+    public bool haveTalked;
     
 
     void Start()
@@ -27,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         isFinished = false;
+        if (haveTalked) return;
     }
     public void StartDialogue(Dialogue dialogue)
     {
@@ -79,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log(vecescontadas);
         animatorCamera.GetComponent<Animator>().SetBool("EndDialogue", true);
         SpawnEnemies();
-        
+        haveTalked = true;
     }
 
     public void SpawnEnemies()

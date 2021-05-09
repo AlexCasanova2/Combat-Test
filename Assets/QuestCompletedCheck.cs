@@ -11,11 +11,14 @@ public class QuestCompletedCheck : MonoBehaviour
     public void FinishAnimation()
     {
         anim.SetBool("FinishAnimation", true);
-        
-        
     }
     public void HidePanel()
     {
         questComplete.SetActive(false);
+    }
+
+    public void Completed()
+    {
+        anim.SetBool("QuestCompleted", false);
     }
 }

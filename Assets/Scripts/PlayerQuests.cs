@@ -11,6 +11,8 @@ public class PlayerQuests : MonoBehaviour
     public TextMeshProUGUI questText;
     Animator anim;
     string name;
+    bool _haveTalked;
+    bool _haveTalked2;
 
     [Header("Quests")]
     public List<Quest> quests = new List<Quest>();
@@ -27,10 +29,16 @@ public class PlayerQuests : MonoBehaviour
             if (quest.isActive)
             {
                 quest.goal.LocationReached();
+                quest.goal.Talked();
                 if (quest.goal.reachedLocation)
                 {
                     quest.Complete();
-                   name =  quest.title;
+                    name = quest.title;
+                }
+                if (quest.goal.haveTalked)
+                {
+                    quest.Complete();
+                    name = quest.title;
                 }
             }
         }
@@ -45,20 +53,48 @@ public class PlayerQuests : MonoBehaviour
         }*/
     }
 
+    private void Update()
+    {
+        _haveTalked = FindObjectOfType<DialogueManager>().haveTalked;
+        _haveTalked2 = _haveTalked;
+
+        if (_haveTalked2)
+        {
+            Prueba();
+        }
+
+        if (_haveTalked2) return;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("FinishQuest"))
         {
             DoQuest();
-
-            //Hacer Animacion Canvas para enseñar que la quest esta completada
-
-            questComplete.SetActive(true);
-            anim.SetBool("QuestCompleted", true);
-
-            questText.SetText("You have completed the " + name +  " Quest. You have gained gold and experience.");
-
-
+            ShowUIQuest();
         }
     }
+
+    public void ShowUIQuest()
+    {
+        //Hacer Animacion Canvas para enseñar que la quest esta completada
+        questComplete.SetActive(true);
+        anim.SetBool("QuestCompleted", true);
+
+        questText.SetText("You have completed the " + name + " Quest. You have gained gold and experience.");
+    }
+
+
+
+    public void Prueba()
+    {
+        DoQuest();
+        //ShowUIQuest();
+        questComplete.SetActive(true);
+        anim.SetBool("QuestCompleted", true);
+        
+        questText.SetText("You have completed the " + name + " Quest. You have gained gold and experience.");
+        return;
+    }
+
 }

@@ -9,6 +9,7 @@ public class ShowGUIPopUp : MonoBehaviour
     private TextMeshProUGUI _text;
     private int contador;
     public string textToShow;
+    public int timeShowing;
     void Start()
     {
         contador = 0;
@@ -35,7 +36,7 @@ public class ShowGUIPopUp : MonoBehaviour
         text.SetActive(true);
         contador++;
 
-        if (contador >= 500)
+        if (contador >= timeShowing)
         {
             Destroy(coll);
             text.SetActive(false);

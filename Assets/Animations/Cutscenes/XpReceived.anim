@@ -249,8 +249,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 4.6
-    functionName: _EndGoldAnim
+  - time: 5.1
+    functionName: _EndXpAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

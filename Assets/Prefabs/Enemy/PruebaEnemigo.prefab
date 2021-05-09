@@ -108,6 +108,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5256474497256583699, guid: 173824accd0b6434e8951f8251989f63,
+        type: 3}
+      propertyPath: goldToGive
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3903462448323168808, guid: 173824accd0b6434e8951f8251989f63, type: 3}
     - {fileID: 3903462448323168813, guid: 173824accd0b6434e8951f8251989f63, type: 3}
