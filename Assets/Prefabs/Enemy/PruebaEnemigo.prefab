@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Goblin_Male
       objectReference: {fileID: 0}
+    - target: {fileID: 3903462447423704117, guid: 173824accd0b6434e8951f8251989f63,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3903462447790500855, guid: 173824accd0b6434e8951f8251989f63,
         type: 3}
       propertyPath: m_IsKinematic

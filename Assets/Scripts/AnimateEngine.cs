@@ -37,6 +37,7 @@ public class AnimateEngine : MonoBehaviour
             anim.SetBool("interacted", true);
             pickup.SetActive(isActive);
             audioSource.Play();
+            gameObject.GetComponentInChildren<Outline>().enabled = false;
         }
 
     }

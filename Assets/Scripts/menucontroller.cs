@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class menucontroller : MonoBehaviour
 {
-  
     public Animator anim;
     public GameObject panelOscuro;
     public GameObject optionsPanel;
@@ -46,6 +45,7 @@ public class menucontroller : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     public void Test()

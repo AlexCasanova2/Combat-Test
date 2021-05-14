@@ -8,7 +8,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject nameObj, dialogueObj, continueObj;
+    public GameObject nameObj, dialogueObj, continueObj, talkObj;
 
     public TextMeshProUGUI nameText, dialogueText;
     public Animator anim;
@@ -16,15 +16,22 @@ public class DialogueManager : MonoBehaviour
     public Camera cam1, cam2;
     public bool isFinished;
     public GameObject spawnEnemies;
+    public GameObject cleric1;
     int vecescontadas = 0;
     public GameObject animatorCamera;
 
     public bool haveTalked;
+    bool cursorLockedVar;
     
 
     void Start()
     {
         sentences = new Queue<string>();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        cursorLockedVar = true;
+
     }
     private void Update()
     {
@@ -33,7 +40,13 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(Dialogue dialogue)
     {
-        
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cursorLockedVar = false;
+        //Debug.Log(cursorLockedVar);
+
         nameObj.SetActive(true);
         dialogueObj.SetActive(true);
         continueObj.SetActive(true);
@@ -81,8 +94,18 @@ public class DialogueManager : MonoBehaviour
         if (!isFinished) isFinished = true;
         //Debug.Log(vecescontadas);
         animatorCamera.GetComponent<Animator>().SetBool("EndDialogue", true);
+        cleric1.GetComponent<DialogueTrigger>().isTalking = false;
         SpawnEnemies();
         haveTalked = true;
+        cleric1.GetComponent<BoxCollider>().enabled = false;
+        talkObj.SetActive(false);
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cursorLockedVar = true;
+        //Debug.Log(cursorLockedVar);
     }
 
     public void SpawnEnemies()
@@ -96,7 +119,6 @@ public class DialogueManager : MonoBehaviour
         if (vecescontadas >= 2)
         {
             Debug.Log("No hagas nada");
-            
         }
     }
    

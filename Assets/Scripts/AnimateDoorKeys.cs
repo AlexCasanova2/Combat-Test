@@ -7,6 +7,7 @@ public class AnimateDoorKeys : MonoBehaviour
     public Animator animator;
     bool _haveKeys;
     public GameObject gameController;
+    public bool ended;
 
     void Update()
     {
@@ -17,8 +18,8 @@ public class AnimateDoorKeys : MonoBehaviour
     {
         if (other.CompareTag("Player") && Input.GetKey(KeyCode.E) && _haveKeys)
         {
-            Debug.Log("Hola");
             animator.SetBool("canEnter", true);
+            ended = true;
         }
 
     }

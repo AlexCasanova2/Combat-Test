@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
     public GameObject inventoryUI;
+    public CinemachineFreeLook freelook;
+    bool ok;
+    //Cursor lock
+    bool cursorLockedVar;
 
     Inventory inventory;
 
@@ -15,13 +20,32 @@ public class InventoryUI : MonoBehaviour
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        cursorLockedVar = true;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
+        if (Input.GetButtonDown("Inventory") && !cursorLockedVar)
         {
             inventoryUI.gameObject.SetActive(!inventoryUI.activeSelf);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            cursorLockedVar = true;
+            //Debug.Log(cursorLockedVar);
+            freelook.enabled = true;
+        }
+        else if (Input.GetButtonDown("Inventory") && cursorLockedVar)
+        {
+            inventoryUI.gameObject.SetActive(!inventoryUI.activeSelf);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            cursorLockedVar = false;
+            //Debug.Log(cursorLockedVar);
+            freelook.enabled = false;
+            //ok = !ok;
         }
     }
 
@@ -39,3 +63,5 @@ public class InventoryUI : MonoBehaviour
         }
     }
 }
+
+

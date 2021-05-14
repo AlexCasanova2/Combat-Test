@@ -99,4 +99,38 @@ public class CutsceneEvents : MonoBehaviour
         SceneManager.LoadSceneAsync("MainScene");
     }
     
+    //TEXTOS CINEMATICA
+
+    public void StartText1()
+    {
+        text1.SetActive(true);
+    } 
+    public void StartText2()
+    {
+        text1.SetActive(false);
+        text2.SetActive(true);
+    }
+    public void StartText3()
+    {
+        text1.SetActive(false);
+        text2.SetActive(false);
+        text3.SetActive(true);
+    }
+    public void StartText4()
+    {
+        text1.SetActive(false);
+        text2.SetActive(false);
+        text3.SetActive(false);
+        text4.SetActive(true);
+    }
+
+    public void HideText()
+    {
+        text1.SetActive(false);
+        text2.SetActive(false);
+        text3.SetActive(false);
+        text4.SetActive(false);
+    }
+
+
 }

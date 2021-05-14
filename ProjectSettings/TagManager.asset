@@ -18,6 +18,8 @@ TagManager:
   - Interact
   - FinishQuest
   - Pickup
+  - FinishGame
+  - Canvas
   layers:
   - Default
   - TransparentFX

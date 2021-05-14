@@ -17,6 +17,7 @@ public class InstantiateEnemyBoss : MonoBehaviour
 
     public void Instantiate()
     {
+        canInstantiate = false;
         for (int i = 0; i < numEnemies; i++)
         {
             GameObject var = Instantiate(enemyBoss, gameObject.transform.position, Quaternion.identity);

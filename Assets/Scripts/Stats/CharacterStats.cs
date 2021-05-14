@@ -48,7 +48,6 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Visual")]
     public GameObject gameManager;
-
     public Image healthUI;
     public ParticleSystem healing;
 
@@ -65,7 +64,6 @@ public class CharacterStats : MonoBehaviour
     public GameObject getGoldText;
     Animator gettingGold;
     public TextMeshProUGUI goldText;
-
     public TextMeshProUGUI currentGoldText;
 
 
@@ -112,7 +110,7 @@ public class CharacterStats : MonoBehaviour
 
         //PRUEBAS
         if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
-        if (Input.GetKeyDown(KeyCode.H)) HealPlayer(5);
+        if (Input.GetKeyDown(KeyCode.H)) HealPlayer(15);
         if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
 
         //Realizamos ataques con o sin combo

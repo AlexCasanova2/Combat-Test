@@ -8,6 +8,7 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
     public GameObject uiTalk;
     public bool isTalking;
+    public bool ended;
     
     public void TriggerDialogue()
     {

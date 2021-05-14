@@ -10,6 +10,7 @@ public class AnimateDoor : MonoBehaviour
     public GameObject engine, instantiateBoss;
     int totalEnginesCompleted;
     //public GameObject checkObjective;
+    public bool ended;
 
     [Header("GameController")]
     public GameObject gameController;
@@ -49,5 +50,7 @@ public class AnimateDoor : MonoBehaviour
     {
         instantiateBoss.GetComponent<InstantiateEnemyBoss>().canInstantiate = true;
         audioSource.Play();
+        gameObject.GetComponent<ShowGUIPopUpNoDestroy>().HideText();
+        ended = true;
     }
 }

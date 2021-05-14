@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using TMPro;
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class EquipmentManager : MonoBehaviour
     public ItemPickUp basicHelmet;
     public ItemPickUp basicSword;
     public ItemPickUp basicShield;
+
+    [Header("ShowTutorial")]
+    public GameObject uiTutorial;
+    public TextMeshProUGUI textTutorial;
+    int times;
 
     Equipment[] currentEquipment;
 
@@ -82,7 +88,18 @@ public class EquipmentManager : MonoBehaviour
         if (slotIndex == 3)
         {
             basicSword.Activar();
-            //Debug.Log("Estas equipando un arma");
+            Debug.Log("Estas equipando un arma");
+            times++;
+            if (times == 1)
+            {
+                uiTutorial.SetActive(true);
+                textTutorial.SetText("Press 'U' to unequip");
+               
+            }
+            if (Input.GetKey(KeyCode.U))
+            {
+                uiTutorial.SetActive(false);
+            }
             //Al equipar un arma cambiamos el valor del bool a true para poder habilitar la animación de atacar
             isEquipped = true;
         }

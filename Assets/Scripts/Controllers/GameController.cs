@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -12,13 +13,20 @@ public class GameController : MonoBehaviour
 
     public static bool GameIsPaused = false;
 
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, uiTutorial;
+    int playerCurrentHelath;
+    int timesEntered;
+    public TextMeshProUGUI textTutorial;
+    bool lowHealth;
     bool _playerDead;
     bool _giveXp;
     public GameObject enemyPrefab, dialogueManager;
     public int numEnemies;
     public Vector3 position;
     bool isFinished;
+
+    //Cursor lock
+    bool cursorLockedVar;
 
     public bool tutorialUI;
     public GameObject tutorialPopup;
@@ -30,15 +38,25 @@ public class GameController : MonoBehaviour
     [Header("Check Keys")]
     public bool haveKeys;
 
+
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        cursorLockedVar = true;
+    }
+
     void Start()
     {
         hola = cameraLook.gameObject.GetComponent<CinemachineFreeLook>();
+        
     }
 
     private void Update()
     {
         //Check if player is dead
         _playerDead = playerPrefab.GetComponentInChildren<CharacterStats>().dead;
+        playerCurrentHelath = playerPrefab.GetComponentInChildren<CharacterStats>().currentHealth;
 
         if (isFinished) { return; }
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
@@ -48,6 +66,7 @@ public class GameController : MonoBehaviour
         {
             if (GameIsPaused) Resume();
             else Pause();
+            Debug.Log("Apreto Esc");
         }
 
         if (Input.GetButtonDown("Inventory") && tutorialUI)
@@ -56,6 +75,7 @@ public class GameController : MonoBehaviour
         }
 
         Dead();
+        ShowTutorialHeal();
     }
 
     public void ActivateDoor()
@@ -104,11 +124,46 @@ public class GameController : MonoBehaviour
 
     public void StopMovement()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && !cursorLockedVar)
         {
-            UnityEngine.Cursor.visible = ! UnityEngine.Cursor.visible;
-            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            cursorLockedVar = true;
+            //Debug.Log(cursorLockedVar);
             hola.enabled = ! hola.enabled;
         }
+        else if (Input.GetButtonDown("Cancel") && cursorLockedVar)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            cursorLockedVar = false;
+            //Debug.Log(cursorLockedVar);
+            hola.enabled = !hola.enabled;
+        }
+    }
+
+
+    public void ShowTutorialHeal()
+    {
+        if (timesEntered <= 1)
+        {
+            if (playerCurrentHelath == 60)
+            {
+                lowHealth = true;
+                uiTutorial.SetActive(true);
+                textTutorial.SetText("Press 'H' to heal");
+                Debug.Log(timesEntered);
+                timesEntered++;
+            }
+        }
+        else
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            uiTutorial.SetActive(false);
+        }
+
     }
 }

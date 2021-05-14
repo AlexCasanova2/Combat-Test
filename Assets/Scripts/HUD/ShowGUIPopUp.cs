@@ -28,7 +28,8 @@ public class ShowGUIPopUp : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         text.SetActive(false);
-        Destroy(coll);
+        coll.enabled = false;
+        Debug.Log("Has salido");
     }
 
     public void AllToDo()
@@ -38,7 +39,7 @@ public class ShowGUIPopUp : MonoBehaviour
 
         if (contador >= timeShowing)
         {
-            Destroy(coll);
+            coll.enabled = false;
             text.SetActive(false);
         }
     }

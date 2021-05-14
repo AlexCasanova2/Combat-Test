@@ -6,10 +6,12 @@ public class DestroyObject : MonoBehaviour
 {
 
     Collider coll;
+    public BoxCollider boxCollider;
     public ParticleSystem[] destroy;
     bool isDestroyed;
     public AudioSource audioSource;
     public int count = 0;
+    public GameObject objetoADestruir;
 
     void Start()
     {
@@ -23,7 +25,8 @@ public class DestroyObject : MonoBehaviour
     {
         if (isDestroyed)
         {
-            Destroy(gameObject);
+            Destroy(objetoADestruir);
+            boxCollider.enabled = false;
         }
 
     }
@@ -31,7 +34,7 @@ public class DestroyObject : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.tag == "PlayerWeapon")
+        if (other.CompareTag("PlayerWeapon"))
         {
             if (count <= 7)
             {

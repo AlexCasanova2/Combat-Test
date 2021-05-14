@@ -55,15 +55,17 @@ public class PlayerQuests : MonoBehaviour
 
     private void Update()
     {
+        if (_haveTalked2) return;
+        if (_haveTalked) return;
         _haveTalked = FindObjectOfType<DialogueManager>().haveTalked;
         _haveTalked2 = _haveTalked;
 
         if (_haveTalked2)
         {
             Prueba();
+            anim.SetBool("QuestCompleted", true);
+            return;
         }
-
-        if (_haveTalked2) return;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -91,9 +93,10 @@ public class PlayerQuests : MonoBehaviour
         DoQuest();
         //ShowUIQuest();
         questComplete.SetActive(true);
-        anim.SetBool("QuestCompleted", true);
         
+        _haveTalked2 = false;
         questText.SetText("You have completed the " + name + " Quest. You have gained gold and experience.");
+        anim.SetBool("QuestCompleted", false);
         return;
     }
 

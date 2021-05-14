@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3330200}
   - component: {fileID: 2376232}
   - component: {fileID: 517446281519588495}
+  - component: {fileID: 8511081642722850831}
   m_Layer: 0
   m_Name: SM_Env_Pillar_Square_03
   m_TagString: Untagged
@@ -95,6 +96,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7446556, y: 1.9668026, z: 0.74261856}
   m_Center: {x: 0.0000019073486, y: 0.9834013, z: 0.0000009536743}
+--- !u!208 &8511081642722850831
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194992}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.372, y: 0.98300004, z: 0.37100002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.98300004, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!64 &1723011885
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -98,6 +98,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: FinishAnimation
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: QuestCompleted
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2456452996855455630}
   m_Solo: 0
