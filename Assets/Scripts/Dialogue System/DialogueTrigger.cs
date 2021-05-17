@@ -34,6 +34,17 @@ public class DialogueTrigger : MonoBehaviour
                 other.GetComponent<CharacterStats>().Cinematica();
                 isTalking = true;
                 uiTalk.SetActive(false);
+
+                Cursor.visible = !Cursor.visible;
+
+                if (Cursor.lockState == CursorLockMode.Locked)
+                {
+                    Cursor.lockState = CursorLockMode.Confined;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
             }
         }
     }

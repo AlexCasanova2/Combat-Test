@@ -41,9 +41,13 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.visible = false;
+        /*Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        cursorLockedVar = true;
+        cursorLockedVar = true;*/
+
+        GameIsPaused = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Start()
@@ -60,12 +64,13 @@ public class GameController : MonoBehaviour
 
         if (isFinished) { return; }
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
-        StopMovement();
+        //StopMovement();
        
         if (Input.GetButtonDown("Cancel"))
         {
-            if (GameIsPaused) Resume();
-            else Pause();
+            /*if (GameIsPaused) Resume();
+            else Pause();*/
+            PauseResume();
             Debug.Log("Apreto Esc");
         }
 
@@ -76,6 +81,7 @@ public class GameController : MonoBehaviour
 
         Dead();
         ShowTutorialHeal();
+        Debug.Log(Cursor.lockState);
     }
 
     public void ActivateDoor()
@@ -108,38 +114,46 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void Resume()
+    void PauseResume()
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        GameIsPaused = false;
+        pauseMenu.SetActive(!pauseMenu.active);
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Time.timeScale = 0;
+        }
+        
+        GameIsPaused = !GameIsPaused;
+        Cursor.visible = !Cursor.visible;
+
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
-    void Pause()
+    /*void Pause()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
         GameIsPaused = true;
-    }
+    }*/
 
     public void StopMovement()
     {
-        if (Input.GetButtonDown("Cancel") && !cursorLockedVar)
+        if (Input.GetButtonDown("Cancel"))
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            cursorLockedVar = true;
-            //Debug.Log(cursorLockedVar);
+            Cursor.visible = !Cursor.visible;
             hola.enabled = ! hola.enabled;
         }
-        else if (Input.GetButtonDown("Cancel") && cursorLockedVar)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            cursorLockedVar = false;
-            //Debug.Log(cursorLockedVar);
-            hola.enabled = !hola.enabled;
-        }
+        
     }
 
 

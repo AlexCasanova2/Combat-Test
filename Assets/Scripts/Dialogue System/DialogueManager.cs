@@ -21,17 +21,12 @@ public class DialogueManager : MonoBehaviour
     public GameObject animatorCamera;
 
     public bool haveTalked;
-    bool cursorLockedVar;
+    //bool cursorLockedVar;
     
 
     void Start()
     {
         sentences = new Queue<string>();
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        cursorLockedVar = true;
-
     }
     private void Update()
     {
@@ -40,12 +35,8 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(Dialogue dialogue)
     {
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        cursorLockedVar = false;
-        //Debug.Log(cursorLockedVar);
+        
+        
 
         nameObj.SetActive(true);
         dialogueObj.SetActive(true);
@@ -99,13 +90,17 @@ public class DialogueManager : MonoBehaviour
         haveTalked = true;
         cleric1.GetComponent<BoxCollider>().enabled = false;
         talkObj.SetActive(false);
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        cursorLockedVar = true;
-        //Debug.Log(cursorLockedVar);
+        Cursor.visible = !Cursor.visible;
+
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void SpawnEnemies()

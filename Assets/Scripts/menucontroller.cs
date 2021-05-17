@@ -9,11 +9,17 @@ public class menucontroller : MonoBehaviour
     public GameObject panelOscuro;
     public GameObject optionsPanel;
 
+    private void Start()
+    {
+        Cursor.visible = true;
+    }
     public void NuevoJuego()
     {        
         panelOscuro.SetActive(true);
         anim.SetBool("isClicked", true);
         StartCoroutine(LoadScene());
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     IEnumerator LoadScene()
     {

@@ -8,7 +8,7 @@ public class InventoryUI : MonoBehaviour
     public CinemachineFreeLook freelook;
     bool ok;
     //Cursor lock
-    bool cursorLockedVar;
+    //bool cursorLockedVar;
 
     Inventory inventory;
 
@@ -21,31 +21,28 @@ public class InventoryUI : MonoBehaviour
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
 
-        Cursor.visible = false;
+        /*Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        cursorLockedVar = true;
+        cursorLockedVar = true;*/
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory") && !cursorLockedVar)
+        if (Input.GetButtonDown("Inventory"))
         {
+            freelook.enabled = !freelook.enabled;
             inventoryUI.gameObject.SetActive(!inventoryUI.activeSelf);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            cursorLockedVar = true;
-            //Debug.Log(cursorLockedVar);
-            freelook.enabled = true;
-        }
-        else if (Input.GetButtonDown("Inventory") && cursorLockedVar)
-        {
-            inventoryUI.gameObject.SetActive(!inventoryUI.activeSelf);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            cursorLockedVar = false;
-            //Debug.Log(cursorLockedVar);
-            freelook.enabled = false;
-            //ok = !ok;
+
+            Cursor.visible = !Cursor.visible;
+
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
