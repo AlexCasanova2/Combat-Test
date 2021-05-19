@@ -70,13 +70,14 @@ public class GameController : MonoBehaviour
         {
             if (controlHUD && GameIsPaused)
             {
-                pauseMenu.SetActive(false);
                 PauseYMouseControl(false, false);
+                pauseMenu.SetActive(false);
                 escapePressed = false;
             }
             else
             {
-                PauseYMouseControl(true, true); pauseMenu.SetActive(true);
+                PauseYMouseControl(true, true); 
+                pauseMenu.SetActive(true);
                 escapePressed = true;
             }
         }
