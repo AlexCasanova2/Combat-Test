@@ -29,7 +29,6 @@ public class ShowGUIPopUp : MonoBehaviour
     {
         text.SetActive(false);
         coll.enabled = false;
-        Debug.Log("Has salido");
     }
 
     public void AllToDo()

@@ -1,7 +1,4 @@
-﻿using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -27,7 +24,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !isTalking)
             {
                 TriggerDialogue();
                 other.GetComponent<CharacterStats>().isTalking = true;
@@ -35,16 +32,7 @@ public class DialogueTrigger : MonoBehaviour
                 isTalking = true;
                 uiTalk.SetActive(false);
 
-                Cursor.visible = !Cursor.visible;
-
-                if (Cursor.lockState == CursorLockMode.Locked)
-                {
-                    Cursor.lockState = CursorLockMode.Confined;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
+                GameController.PauseYMouseControl(false, true);
             }
         }
     }

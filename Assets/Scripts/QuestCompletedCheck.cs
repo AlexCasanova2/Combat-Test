@@ -7,6 +7,7 @@ public class QuestCompletedCheck : MonoBehaviour
     public Animator anim;
     public GameObject questComplete;
 
+    public GameObject uiObjectives;
 
     public void FinishAnimation()
     {
@@ -20,5 +21,7 @@ public class QuestCompletedCheck : MonoBehaviour
     public void Completed()
     {
         anim.SetBool("QuestCompleted", false);
+
+        uiObjectives.SetActive(false);
     }
 }

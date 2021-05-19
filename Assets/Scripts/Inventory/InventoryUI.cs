@@ -1,17 +1,17 @@
 ﻿using Cinemachine;
 using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
     public GameObject inventoryUI;
     public CinemachineFreeLook freelook;
-    bool ok;
-    //Cursor lock
-    //bool cursorLockedVar;
+    bool _pressed;
+
+    public static bool inventoryPressed = false; 
 
     Inventory inventory;
-
     InventorySlot[] slots;
 
     void Start()
@@ -20,28 +20,32 @@ public class InventoryUI : MonoBehaviour
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-
-        /*Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        cursorLockedVar = true;*/
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
+        _pressed = GameController.escapePressed;
+
+        if (Input.GetButtonDown("Inventory") && !_pressed)
         {
             freelook.enabled = !freelook.enabled;
             inventoryUI.gameObject.SetActive(!inventoryUI.activeSelf);
 
-            Cursor.visible = !Cursor.visible;
-
-            if (Cursor.lockState == CursorLockMode.Locked)
+            if (GameController.controlHUD)
             {
-                Cursor.lockState = CursorLockMode.Confined;
+                GameController.PauseYMouseControl(false, false);
+                //Control movimiento personaje
+                FindObjectOfType<ThirdPersonCharacter>().enabled = true;
+                FindObjectOfType<ThirdPersonUserControl>().enabled = true;
+                inventoryPressed = true;
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                GameController.PauseYMouseControl(false, true);
+                //Control movimiento personaje
+                FindObjectOfType<ThirdPersonCharacter>().enabled = false;
+                FindObjectOfType<ThirdPersonUserControl>().enabled = false;
+                inventoryPressed = true;
             }
         }
     }

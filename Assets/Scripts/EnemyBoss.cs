@@ -25,6 +25,7 @@ public class EnemyBoss : MonoBehaviour
         {
             gameFinished = canvas.transform.GetChild(16).gameObject;
             gameFinished.SetActive(true);
+            GameController.PauseYMouseControl(false, true);
         }
     }
 }

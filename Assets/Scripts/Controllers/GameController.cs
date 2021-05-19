@@ -12,6 +12,9 @@ public class GameController : MonoBehaviour
     public GameObject deadMenu;
 
     public static bool GameIsPaused = false;
+    public static bool controlHUD = false;
+    public static bool escapePressed = false;
+    bool inventoryPressed;
 
     public GameObject playerPrefab, uiTutorial;
     int playerCurrentHelath;
@@ -41,13 +44,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        /*Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        cursorLockedVar = true;*/
-
         GameIsPaused = false;
-
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Start()
@@ -64,14 +63,22 @@ public class GameController : MonoBehaviour
 
         if (isFinished) { return; }
         isFinished = dialogueManager.GetComponent<DialogueManager>().isFinished;
-        //StopMovement();
+
+        inventoryPressed = InventoryUI.inventoryPressed;
        
         if (Input.GetButtonDown("Cancel"))
         {
-            /*if (GameIsPaused) Resume();
-            else Pause();*/
-            PauseResume();
-            Debug.Log("Apreto Esc");
+            if (controlHUD && GameIsPaused)
+            {
+                pauseMenu.SetActive(false);
+                PauseYMouseControl(false, false);
+                escapePressed = false;
+            }
+            else
+            {
+                PauseYMouseControl(true, true); pauseMenu.SetActive(true);
+                escapePressed = true;
+            }
         }
 
         if (Input.GetButtonDown("Inventory") && tutorialUI)
@@ -81,7 +88,6 @@ public class GameController : MonoBehaviour
 
         Dead();
         ShowTutorialHeal();
-        Debug.Log(Cursor.lockState);
     }
 
     public void ActivateDoor()
@@ -91,17 +97,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     public void InstantiateEnemy()
     {
-
         for (int i = 0; i < numEnemies; i++)
         {
             GameObject var = Instantiate(enemyPrefab, position, Quaternion.identity);
 
             var.GetComponentInChildren<Enemy>().target = playerPrefab.transform.GetChild(1).gameObject;
             var.GetComponentInChildren<Enemy>().activeState = Enemy.States.chase;
-
             isFinished = false;
         }
     }
@@ -111,40 +114,36 @@ public class GameController : MonoBehaviour
         if (_playerDead)
         {
             deadMenu.SetActive(true);
+            uiTutorial.SetActive(false);
+            GameController.PauseYMouseControl(false,true);
         }
     }
 
-    void PauseResume()
+    public static void PauseYMouseControl( bool pauseB, bool mouseB)
     {
-        pauseMenu.SetActive(!pauseMenu.active);
-        if (Time.timeScale == 0)
+        controlHUD = mouseB;
+        GameIsPaused = pauseB;
+
+        if (GameIsPaused)
+        {
+            controlHUD = true;
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else if (controlHUD && !GameIsPaused)
         {
             Time.timeScale = 1;
-        }
-        else
-        {
-            Time.timeScale = 0;
-        }
-        
-        GameIsPaused = !GameIsPaused;
-        Cursor.visible = !Cursor.visible;
-
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
         else
         {
+            Time.timeScale = 1;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
-
-    /*void Pause()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0;
-        GameIsPaused = true;
-    }*/
 
     public void StopMovement()
     {
@@ -153,9 +152,7 @@ public class GameController : MonoBehaviour
             Cursor.visible = !Cursor.visible;
             hola.enabled = ! hola.enabled;
         }
-        
     }
-
 
     public void ShowTutorialHeal()
     {
@@ -166,7 +163,6 @@ public class GameController : MonoBehaviour
                 lowHealth = true;
                 uiTutorial.SetActive(true);
                 textTutorial.SetText("Press 'H' to heal");
-                Debug.Log(timesEntered);
                 timesEntered++;
             }
         }

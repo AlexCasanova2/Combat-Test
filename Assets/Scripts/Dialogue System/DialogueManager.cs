@@ -20,24 +20,21 @@ public class DialogueManager : MonoBehaviour
     int vecescontadas = 0;
     public GameObject animatorCamera;
 
-    public bool haveTalked;
-    //bool cursorLockedVar;
-    
+    public bool haveTalked;    
 
     void Start()
     {
         sentences = new Queue<string>();
     }
+
     private void Update()
     {
         isFinished = false;
         if (haveTalked) return;
     }
+
     public void StartDialogue(Dialogue dialogue)
     {
-        
-        
-
         nameObj.SetActive(true);
         dialogueObj.SetActive(true);
         continueObj.SetActive(true);
@@ -51,7 +48,6 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
         DisplayNextSentence();
-
     }
 
     public void DisplayNextSentence()
@@ -83,33 +79,22 @@ public class DialogueManager : MonoBehaviour
         FindObjectOfType<CharacterStats>().playerCamera.enabled = true;
         FindObjectOfType<DialogueTrigger>().uiTalk.SetActive(true);
         if (!isFinished) isFinished = true;
-        //Debug.Log(vecescontadas);
+
         animatorCamera.GetComponent<Animator>().SetBool("EndDialogue", true);
         cleric1.GetComponent<DialogueTrigger>().isTalking = false;
         SpawnEnemies();
         haveTalked = true;
         cleric1.GetComponent<BoxCollider>().enabled = false;
         talkObj.SetActive(false);
-
-        Cursor.visible = !Cursor.visible;
-
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+                
+        GameController.PauseYMouseControl(false, false);
     }
 
     public void SpawnEnemies()
     {
         if (vecescontadas <= 1)
         {
-            //Debug.Log("Spawneo");
             spawnEnemies.GetComponent<InstantiateEnemies>().InstantiateEnemy();
-
         }
         if (vecescontadas >= 2)
         {

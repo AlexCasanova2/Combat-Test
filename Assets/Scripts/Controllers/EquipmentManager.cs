@@ -88,7 +88,6 @@ public class EquipmentManager : MonoBehaviour
         if (slotIndex == 3)
         {
             basicSword.Activar();
-            Debug.Log("Estas equipando un arma");
             times++;
             if (times == 1)
             {

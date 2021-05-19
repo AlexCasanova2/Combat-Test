@@ -30,7 +30,6 @@ public class ShowGUIPopUpNoDestroy : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         text.SetActive(false);
-        Debug.Log("Has salido");
     }
 
     public void AllToDo()

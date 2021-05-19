@@ -109,9 +109,9 @@ public class CharacterStats : MonoBehaviour
         if (isTalking) { return; }
 
         //PRUEBAS
-        if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
+        //if (Input.GetKeyDown(KeyCode.T)) TakeDamage(10);
         if (Input.GetKeyDown(KeyCode.H)) HealPlayer(15);
-        if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
+        //if (Input.GetKeyDown(KeyCode.X)) GetXp(10);
 
         //Realizamos ataques con o sin combo
         AttackAndCombo();
@@ -136,6 +136,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (currentHealth >= 100)
         {
+            currentHealth = 100;
             Debug.Log("No te puedes curar, tienes: " + currentHealth + " de vida.");
         }
         else

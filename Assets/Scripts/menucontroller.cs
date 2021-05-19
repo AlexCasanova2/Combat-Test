@@ -51,7 +51,6 @@ public class menucontroller : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
-        //Cursor.lockState = CursorLockMode.None;
     }
 
     public void Test()
