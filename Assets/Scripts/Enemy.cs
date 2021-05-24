@@ -77,8 +77,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
-
-    
+        
     void Update()
     {
         if (giveXP) return;

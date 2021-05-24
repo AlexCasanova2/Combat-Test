@@ -37,7 +37,7 @@ public class InventoryUI : MonoBehaviour
                 //Control movimiento personaje
                 FindObjectOfType<ThirdPersonCharacter>().enabled = true;
                 FindObjectOfType<ThirdPersonUserControl>().enabled = true;
-                inventoryPressed = true;
+                inventoryPressed = false;
             }
             else
             {

@@ -46,17 +46,23 @@ public class GameController : MonoBehaviour
     {
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
     }
 
     void Start()
     {
+        
         hola = cameraLook.gameObject.GetComponent<CinemachineFreeLook>();
         
     }
 
     private void Update()
     {
+        Cursor.visible = controlHUD;
+
+        Debug.Log(Cursor.lockState);
+        Debug.Log(Cursor.visible);
+
         //Check if player is dead
         _playerDead = playerPrefab.GetComponentInChildren<CharacterStats>().dead;
         playerCurrentHelath = playerPrefab.GetComponentInChildren<CharacterStats>().currentHealth;
@@ -66,7 +72,7 @@ public class GameController : MonoBehaviour
 
         inventoryPressed = InventoryUI.inventoryPressed;
        
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && inventoryPressed == false)
         {
             if (controlHUD && GameIsPaused)
             {
